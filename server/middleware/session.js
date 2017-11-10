@@ -11,6 +11,7 @@ module.exports = function(req, res, next) {
                 req.user = user;
                 delete req.user.password;
                 req.session.user = user;
+                req.session.save();
                 res.locals.user = user;
             }
 

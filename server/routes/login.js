@@ -17,6 +17,7 @@ module.exports = function () {
                 let user = rows[0];
                 delete user.password;
                 req.session.user = user;
+                req.session.save();
                 res.send({
                     success: true,
                     user: user

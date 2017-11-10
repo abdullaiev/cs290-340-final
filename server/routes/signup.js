@@ -20,6 +20,7 @@ module.exports = function () {
                 let user = req.body;
                 delete user.password;
                 req.session.user = user;
+                req.session.save();
                 res.send({
                     success: true
                 });

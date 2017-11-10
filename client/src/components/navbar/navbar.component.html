@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+    <button mat-button routerLink="">Book Reviews</button>
+    <span *ngIf="loggedIn">
+        <button mat-button routerLink="books">Books</button>
+        <button mat-button routerLink="authors">Authors</button>
+        <button mat-button routerLink="users">Users</button>
+    </span>
+
+    <span class="fill-remaining-space"></span>
+    <button  *ngIf="loggedIn" mat-button (click)="logout()">Logout</button>
+
+    <span *ngIf="!loggedIn">
+        <button mat-button routerLink="login">Login</button>
+        <button mat-button routerLink="signup">Signup</button>
+    </span>
+</mat-toolbar>

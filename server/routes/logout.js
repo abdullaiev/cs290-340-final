@@ -3,8 +3,10 @@ module.exports = function () {
     const app = express();
 
     app.get('/', function(req, res) {
-        req.session.reset();
-        res.redirect('/');
+        req.session.destroy();
+        res.send({
+            success: true
+        });
     });
 
     return app;

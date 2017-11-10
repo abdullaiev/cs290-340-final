@@ -1,0 +1,15 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.login-form {
+  width: 40%;
+  max-width: 410px;
+}
+
+.login-btn {
+  text-align: center;
+}

@@ -1,0 +1,32 @@
+<div class="login-container scrollable">
+  <form class="login-form" (submit)="login()">
+    <h1>Please log into the system</h1>
+
+    <mat-form-field class="example-full-width">
+      <input matInput
+             [(ngModel)]="credentials.email"
+             placeholder="Email"
+             name="email"
+             type="email"
+             required>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput
+             [(ngModel)]="credentials.password"
+             placeholder="Password"
+             name="password"
+             type="password"
+             required>
+    </mat-form-field>
+
+    <div class="login-btn">
+      <button mat-button
+              mat-raised-button
+              color="primary"
+              type="submit">
+        Log In
+      </button>
+    </div>
+  </form>
+</div>
