@@ -1,8 +1,10 @@
 <div class="login-container scrollable">
-  <form class="login-form" (submit)="login()">
+  <form class="login-form"
+        (ngSubmit)="login()"
+        #loginForm="ngForm">
     <h1>Please log into the system</h1>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <input matInput
              [(ngModel)]="credentials.email"
              placeholder="Email"
@@ -11,7 +13,7 @@
              required>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <input matInput
              [(ngModel)]="credentials.password"
              placeholder="Password"
@@ -23,6 +25,7 @@
     <div class="login-btn">
       <button mat-button
               mat-raised-button
+              [disabled]="!loginForm.form.valid"
               color="primary"
               type="submit">
         Log In

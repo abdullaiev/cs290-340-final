@@ -1,4 +1,4 @@
-interface Credentials {
+class Credentials {
     email: string;
     password: string;
 }

@@ -2,8 +2,8 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map'
 
-import Credentials from "../interfaces/credentials.interface";
-import User from "../interfaces/user.interface";
+import Credentials from "../types/credentials.type";
+import User from "../types/user.type";
 import {environment} from '../environments/environment';
 
 @Injectable()
@@ -27,7 +27,13 @@ export class AuthService {
     }
 
     signup(user: User) {
+        return this.http.post(environment.api + 'signup', user).map((data:any) => {
+            if (data.success) {
+                this.loggedIn.emit(true);
+            }
 
+            return data;
+        });
     }
 
     logout() {

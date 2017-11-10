@@ -12,9 +12,10 @@ module.exports = function () {
 
         mysql.query(query, function (err) {
             if (err) {
-                req.status(400);
+                res.status(400);
                 res.send({
-                    success: false
+                    success: false,
+                    message: err.message
                 });
             } else {
                 let user = req.body;
