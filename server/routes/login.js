@@ -12,7 +12,10 @@ module.exports = function () {
         mysql.query(query, function (err, rows) {
             if (err || !rows.length) {
                 res.status(401);
-                res.send();
+                res.send({
+                    success: false,
+                    message: 'Provided email and/or password is not correct'
+                });
             } else {
                 let user = rows[0];
                 delete user.password;

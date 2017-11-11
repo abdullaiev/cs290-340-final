@@ -4,13 +4,19 @@ module.exports = function () {
     const app = express();
 
     app.post('/', function (req, res) {
-        let {firstName, lastName, email, password, city, country, bio, author} = req.body;
-        let query = `INSERT INTO user 
-                     (first_name, last_name, email, password, city, country, bio, author) 
-                     VALUES 
-                     ('${firstName}', '${lastName}', '${email}', '${password}', '${city}', '${country}', '${bio}', '${author}');`;
+        const set = {
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password,
+            city: req.body.city,
+            country: req.body.country,
+            bio: req.body.bio,
+            author: req.body.author
+        };
+        const query = `INSERT INTO user SET ?;`;
 
-        mysql.query(query, function (err) {
+        mysql.query(query, set, function (err) {
             if (err) {
                 res.status(400);
                 res.send({
