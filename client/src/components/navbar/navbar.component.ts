@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AuthService} from "../../services/authentication.service";
+import User from "../../types/user.type";
 
 @Component({
     selector: 'app-navbar',
@@ -10,6 +11,7 @@ import {AuthService} from "../../services/authentication.service";
 })
 export class NavbarComponent implements OnInit {
     loggedIn = false;
+    user: User;
 
     constructor(private router:Router,
                 private authService: AuthService) {
@@ -21,8 +23,12 @@ export class NavbarComponent implements OnInit {
     }
 
     checkIfLoggedIn() {
-        this.authService.isLoggedIn().subscribe((response) => {
+        this.authService.isLoggedIn().subscribe((response: any) => {
             this.loggedIn = response.isLoggedIn;
+
+            if (this.loggedIn) {
+                this.user = response.user;
+            }
         });
     }
 

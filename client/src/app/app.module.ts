@@ -18,6 +18,7 @@ import {AuthService} from "../services/authentication.service";
 import {AppHttpInterceptor} from "../services/http.interceptor";
 import {BooksService} from "../services/books.service";
 import {NotificationService} from "../services/notification.service";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {NotificationService} from "../services/notification.service";
         SignupComponent,
         BooksComponent,
         AuthorsComponent,
-        UsersComponent
+        UsersComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
