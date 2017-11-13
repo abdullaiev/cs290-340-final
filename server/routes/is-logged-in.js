@@ -3,18 +3,13 @@ module.exports = function () {
     const app = express();
 
     app.get('/', function(req, res) {
-        if (req.session.user) {
-            res.send({
-                isLoggedIn: true,
-                success: true,
-                user: req.session.user
-            });
-        } else {
-            res.send({
-                isLoggedIn: false,
-                success: true
-            });
-        }
+        const user = req.session.user || null;
+
+        res.send({
+            isLoggedIn: false,
+            success: true,
+            user: user
+        });
     });
 
     return app;

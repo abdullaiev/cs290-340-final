@@ -10,7 +10,7 @@ import {NotificationService} from "./notification.service";
 @Injectable()
 export class AuthService {
     user: User;
-    loggedIn: EventEmitter<boolean> = new EventEmitter();
+    userEmitter: EventEmitter<User> = new EventEmitter();
 
     constructor(private http: HttpClient,
                 private notificationService: NotificationService) {
@@ -20,9 +20,7 @@ export class AuthService {
     login(credentials: Credentials) {
         return this.http.post(environment.api + 'login', credentials).map((data: any) => {
             if (data.success) {
-                this.user = data.user;
-                this.notificationService.success('Successfully Logged In!');
-                this.loggedIn.emit(true);
+                this.update(data.user, 'Successfully Logged In!');
             }
 
             return data;
@@ -32,8 +30,7 @@ export class AuthService {
     signup(user: User) {
         return this.http.post(environment.api + 'signup', user).map((data: any) => {
             if (data.success) {
-                this.notificationService.success('Successfully Signed Up!');
-                this.loggedIn.emit(true);
+                this.update(data.user, 'Successfully Signed Up. Welcome to Books Review!');
             }
 
             return data;
@@ -43,7 +40,7 @@ export class AuthService {
     logout() {
         return this.http.get(environment.api + 'logout').map((data: any) => {
             if (data.success) {
-                this.notificationService.success('Successfully Logged Out!')
+                this.update(null, 'Successfully Logged Out!');
             }
 
             return data;
@@ -53,11 +50,30 @@ export class AuthService {
     isLoggedIn() {
         return this.http.get(environment.api + 'is-logged-in').map((data: any) => {
             if (data.success) {
-                this.user = data.user;
+                let message: string;
+
+                if (data.user) {
+                    message = 'Welcome back!';
+                }
+
+                this.update(data.user, message);
             }
 
             return data;
         });
+    }
+
+    getCurrentUser():User {
+        return this.user;
+    }
+
+    private update(user: User, message?: string) {
+        this.user = user;
+        this.userEmitter.emit(user);
+
+        if (message) {
+            this.notificationService.success(message);
+        }
     }
 }
 

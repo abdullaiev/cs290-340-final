@@ -5,7 +5,7 @@
         Book Reviews
     </button>
 
-    <span *ngIf="loggedIn">
+    <span *ngIf="user">
         <button mat-button routerLink="books">Books</button>
         <button mat-button routerLink="authors">Authors</button>
         <button mat-button routerLink="users">Users</button>
@@ -13,14 +13,14 @@
 
     <span class="fill-remaining-space"></span>
 
-    <button *ngIf="loggedIn"
+    <button *ngIf="user"
             mat-button
             [matMenuTriggerFor]="menu">
-        {{user.first_name}} {{user.last_name}}
+        {{user?.first_name}} {{user?.last_name}}
     </button>
 
     <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="profile">
+        <button mat-menu-item [routerLink]="['profile', user?.id]">
             <mat-icon>account_box</mat-icon>
             <span>Profile</span>
         </button>
@@ -31,7 +31,7 @@
         </button>
     </mat-menu>
 
-    <span *ngIf="!loggedIn">
+    <span *ngIf="!user">
         <button mat-button routerLink="login">Login</button>
         <button mat-button routerLink="signup">Signup</button>
     </span>

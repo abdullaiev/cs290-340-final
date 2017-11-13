@@ -6,8 +6,9 @@ body {
 }
 
 .scrollable {
-  height: calc(100vh - 56px);
+  height: calc(100vh - 114px);
   overflow-y: scroll;
+  padding: 25px;
 }
 
 mat-form-field {

@@ -1,3 +1,36 @@
-<p>
-  profile works!
-</p>
+<div class="profile scrollable">
+  <h1>{{profileUser?.first_name}} {{profileUser?.last_name}}</h1>
+
+  <section *ngIf="currentUser?.id == profileUser?.id"
+           class="current-user-options">
+    <button *ngIf="profileUser?.author"
+            mat-button
+            mat-raised-button
+            color="primary">
+      <mat-icon>queue</mat-icon>
+      Add New Book
+    </button>
+
+    <button mat-button
+            mat-raised-button
+            color="primary">
+      <mat-icon>mode_edit</mat-icon>
+      Edit Profile
+    </button>
+
+    <button mat-button
+            mat-raised-button
+            color="red">
+      <mat-icon>delete_forever</mat-icon>
+      Delete Profile
+    </button>
+  </section>
+
+  <section *ngIf="profileUser?.author" class="books">
+    <h2>Books:</h2>
+  </section>
+
+  <section class="reviews">
+    <h2>Reviews:</h2>
+  </section>
+</div>

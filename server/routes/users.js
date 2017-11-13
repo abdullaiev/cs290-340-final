@@ -3,8 +3,13 @@ module.exports = function () {
     const mysql = require('../conf/db');
     const app = express();
 
-    function getUsers(authors, res, next) {
-        let query = `SELECT * from user WHERE author = ${authors ? 'TRUE' : 'FALSE'}`;
+    function getUsers(config, res, next) {
+        let query = `SELECT id, first_name, last_name, email, city, country, bio, author from user WHERE `;
+        if (config.id) {
+            query += `id = ${config.id}`;
+        } else {
+            query += `author = ${config.authors ? 'TRUE' : 'FALSE'}`;
+        }
 
         mysql.query(query, function (err, rows) {
             if (err) {
@@ -16,11 +21,15 @@ module.exports = function () {
     }
 
     app.get('/', function (req, res, next) {
-        getUsers(false, res, next);
+        getUsers({authors: false}, res, next);
+    });
+
+    app.get('/:id', function (req, res, next) {
+        getUsers({id: req.params.id}, res, next);
     });
 
     app.get('/authors', function (req, res, next) {
-        getUsers(true, res, next);
+        getUsers({authors: false}, res, next);
     });
 
     return app;

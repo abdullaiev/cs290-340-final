@@ -4,9 +4,11 @@ import {Observable} from 'rxjs/Observable'
 import 'rxjs/add/operator/do'
 
 import {NotificationService} from "./notification.service";
+import {Router} from "@angular/router";
 
 export class AppHttpInterceptor implements HttpInterceptor {
-    constructor(@Inject(NotificationService) private notificationService: NotificationService) {
+    constructor(@Inject(NotificationService) private notificationService: NotificationService,
+                @Inject(Router) private router:Router) {
 
     }
 
@@ -28,7 +30,10 @@ export class AppHttpInterceptor implements HttpInterceptor {
     handleError(data: any) {
         let message: string;
 
-        if (data && data.error && data.error.message) {
+        if (data && data.status === 401) {
+            message = 'Session expired. Please log in.';
+            this.router.navigate(['login']);
+        } else if (data && data.error && data.error.message) {
             message = data.error.message;
         } else if (data.message) {
             message = data.message;

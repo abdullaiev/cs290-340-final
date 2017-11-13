@@ -19,6 +19,7 @@ import {AppHttpInterceptor} from "../services/http.interceptor";
 import {BooksService} from "../services/books.service";
 import {NotificationService} from "../services/notification.service";
 import { ProfileComponent } from './profile/profile.component';
+import {UsersService} from "../services/users.service";
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { ProfileComponent } from './profile/profile.component';
         AuthService,
         BooksService,
         NotificationService,
+        UsersService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AppHttpInterceptor,

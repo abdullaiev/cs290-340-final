@@ -10,10 +10,9 @@ import User from "../../types/user.type";
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    loggedIn = false;
     user: User;
 
-    constructor(private router:Router,
+    constructor(private router: Router,
                 private authService: AuthService) {
     }
 
@@ -24,24 +23,22 @@ export class NavbarComponent implements OnInit {
 
     checkIfLoggedIn() {
         this.authService.isLoggedIn().subscribe((response: any) => {
-            this.loggedIn = response.isLoggedIn;
-
-            if (this.loggedIn) {
+            if (response.isLoggedIn) {
                 this.user = response.user;
             }
         });
     }
 
     subscribe() {
-        this.authService.loggedIn.subscribe((loggedIn: boolean) => {
-           this.loggedIn = loggedIn;
+        this.authService.userEmitter.subscribe((user: User) => {
+            this.user = user;
         });
     }
 
     logout() {
-        this.authService.logout().subscribe((data:any) => {
+        this.authService.logout().subscribe((data: any) => {
             if (data.success) {
-                this.loggedIn = false;
+                this.user = null;
                 this.router.navigate(['/login']);
             }
         });
