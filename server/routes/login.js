@@ -14,7 +14,7 @@ module.exports = function () {
                 res.status(401);
                 res.send({
                     success: false,
-                    message: 'Provided email and/or password is not correct'
+                    message: 'Provided email and/or password is not correct.'
                 });
             } else {
                 let user = rows[0];

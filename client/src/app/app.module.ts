@@ -16,6 +16,8 @@ import {AuthorsComponent} from './authors/authors.component';
 import {UsersComponent} from './users/users.component';
 import {AuthService} from "../services/authentication.service";
 import {AppHttpInterceptor} from "../services/http.interceptor";
+import {BooksService} from "../services/books.service";
+import {NotificationService} from "../services/notification.service";
 
 @NgModule({
     declarations: [
@@ -37,6 +39,8 @@ import {AppHttpInterceptor} from "../services/http.interceptor";
     ],
     providers: [
         AuthService,
+        BooksService,
+        NotificationService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AppHttpInterceptor,

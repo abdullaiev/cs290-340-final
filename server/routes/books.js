@@ -5,10 +5,13 @@ module.exports = function () {
 
     app.get('/', function (req, res, next) {
         //todo: get rating of every book too
-        const query = `SELECT book.id, book.title, category.name, book.year from book
-                     INNER JOIN category ON book.category_id = category.id`;
+        const query = `SELECT book.id, book.title, category.name, 
+                       user.first_name, user.last_name, book.year from book
+                       INNER JOIN category ON book.category_id = category.id
+                       INNER JOIN written ON written.book_id = book.id
+                       INNER JOIN user on user.id = written.author_id`;
 
-        mysql.query(query, function (err, rows, fields) {
+        mysql.query(query, function (err, rows) {
             if (err) {
                 next(err);
             } else {

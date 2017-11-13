@@ -4,19 +4,9 @@ module.exports = function () {
     const app = express();
 
     app.post('/', function (req, res) {
-        const set = {
-            first_name: req.body.firstName,
-            last_name: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password,
-            city: req.body.city,
-            country: req.body.country,
-            bio: req.body.bio,
-            author: req.body.author
-        };
         const query = `INSERT INTO user SET ?;`;
 
-        mysql.query(query, set, function (err) {
+        mysql.query(query, req.body, function (err) {
             if (err) {
                 res.status(400);
                 res.send({
