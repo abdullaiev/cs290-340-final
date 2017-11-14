@@ -10,12 +10,17 @@ module.exports = function () {
     app.delete('/:id', deleteBook);
 
     function getBooks(req, res, next) {
-        //todo: get rating of every book too
         let query = `SELECT book.id, book.title, category.name as category_name, 
-                       user.first_name, user.last_name, book.year, written.author_id from book
-                       INNER JOIN category ON book.category_id = category.id
-                       INNER JOIN written ON written.book_id = book.id
-                       INNER JOIN user on user.id = written.author_id`;
+                     user.first_name, user.last_name, book.year, written.author_id, 
+                     (
+                        SELECT AVG(rate) from review 
+                        WHERE review.book_id = written.book_id 
+                        GROUP BY book_id
+                      ) as rate
+                     from book
+                     INNER JOIN category ON book.category_id = category.id
+                     INNER JOIN written ON written.book_id = book.id
+                     INNER JOIN user on user.id = written.author_id`;
 
         if (req.params.authorID) {
             query += ` WHERE written.author_id = ${req.params.authorID}`;
