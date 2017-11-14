@@ -9,7 +9,8 @@ import {
     MatTableModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
 } from '@angular/material'
 import {NgModule} from '@angular/core';
 
@@ -25,7 +26,8 @@ import {NgModule} from '@angular/core';
         MatTableModule,
         MatSnackBarModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatSelectModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -38,7 +40,8 @@ import {NgModule} from '@angular/core';
         MatTableModule,
         MatSnackBarModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatSelectModule
     ]
 })
 export class AppMaterialModule {

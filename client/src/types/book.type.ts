@@ -1,7 +1,8 @@
 export class Book {
     id: number;
     title: string;
-    name: string;
+    category_id: string;
+    category_name: string;
     year: number;
     first_name: string;
     last_name: string;

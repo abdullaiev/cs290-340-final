@@ -11,6 +11,7 @@
 
         <div *ngIf="currentUser?.id == profileUser?.id">
             <button *ngIf="profileUser?.author"
+                    routerLink="/add-book"
                     mat-button
                     mat-raised-button
                     color="primary">

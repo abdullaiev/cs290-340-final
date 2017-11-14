@@ -20,6 +20,8 @@ import {BooksService} from "../services/books.service";
 import {NotificationService} from "../services/notification.service";
 import {UserComponent} from './user/user.component';
 import {UserProfileComponent} from '../components/user-profile/user-profile.component';
+import {AddBookComponent} from './add-book/add-book.component';
+import {CategoryService} from "../services/category.service";
 
 @NgModule({
     declarations: [
@@ -32,7 +34,8 @@ import {UserProfileComponent} from '../components/user-profile/user-profile.comp
         AuthorsComponent,
         UsersComponent,
         UserComponent,
-        UserProfileComponent
+        UserProfileComponent,
+        AddBookComponent
     ],
     imports: [
         BrowserModule,
@@ -45,6 +48,7 @@ import {UserProfileComponent} from '../components/user-profile/user-profile.comp
         UserService,
         BooksService,
         NotificationService,
+        CategoryService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AppHttpInterceptor,

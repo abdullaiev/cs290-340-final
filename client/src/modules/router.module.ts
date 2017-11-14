@@ -9,6 +9,7 @@ import {BooksComponent} from "../app/books/books.component";
 import {AuthorsComponent} from "../app/authors/authors.component";
 import {UsersComponent} from "../app/users/users.component";
 import {UserComponent} from "../app/user/user.component";
+import {AddBookComponent} from "../app/add-book/add-book.component";
 
 const routes: Routes = [
     {
@@ -26,6 +27,10 @@ const routes: Routes = [
     {
         path: 'books',
         component: BooksComponent
+    },
+    {
+        path: 'add-book',
+        component: AddBookComponent
     },
     {
         path: 'authors',

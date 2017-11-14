@@ -78,7 +78,8 @@ export class UserComponent implements OnInit, OnDestroy {
     }
 
     deleteProfile() {
-        let isUserSure = confirm('A deleted profile cannot be restored. Are you sure you want to proceed?');
+        const message = 'A deleted profile cannot be restored. Are you sure you want to proceed?';
+        let isUserSure = confirm(message);
 
         if (!isUserSure) {
             return;
