@@ -1,3 +1,43 @@
-<p>
-  book works!
-</p>
+<div class="scrollable">
+    <section *ngIf="book && !editing">
+        <h1>{{book.title}}</h1>
+        <p>{{book.category_name}}</p>
+        <p>{{book.first_name}} {{book.last_name}}</p>
+        <p>{{book.year}}</p>
+        <P>{{book.plot}}</P>
+
+        <button (click)="writeReview()"
+                mat-button
+                mat-raised-button
+                color="primary">
+            <mat-icon>mode_edit</mat-icon>
+            Write a Review
+        </button>
+
+        <span *ngIf="book.author_id === user.id">
+            <button (click)="edit()"
+                    mat-button
+                    mat-raised-button
+                    color="primary">
+                <mat-icon>mode_edit</mat-icon>
+                Edit
+            </button>
+
+            <button (click)="delete()"
+                    mat-button
+                    mat-raised-button
+                    color="stress">
+                <mat-icon>delete_forever</mat-icon>
+                Delete
+            </button>
+        </span>
+    </section>
+
+    <section *ngIf="editing">
+        <app-book-form [mode]="'edit'"
+                       [book]="bookEditCopy"
+                       (updated)="onUpdate($event)"
+                       (cancelled)="onCancel()">
+        </app-book-form>
+    </section>
+</div>

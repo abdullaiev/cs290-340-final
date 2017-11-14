@@ -33,7 +33,7 @@
 
     <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
     <mat-row *matRowDef="let book; columns: tableColumns;"
-             [routerLink]="['/book', book.id]"
+             [routerLink]="['/books', book.id]"
              class="clickable"></mat-row>
   </mat-table>
 </div>

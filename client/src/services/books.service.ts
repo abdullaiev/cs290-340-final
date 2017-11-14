@@ -20,7 +20,7 @@ export class BooksService {
         let URL = environment.api + 'books';
 
         if (authorID) {
-            URL += '/' + authorID;
+            URL += '/author/' + authorID;
         }
 
         const observable = this.http.get(URL).map(
@@ -32,12 +32,42 @@ export class BooksService {
         return new BooksDataSource(new BooksDB(observable), sort);
     }
 
+    get(id: number) {
+        return this.http.get(environment.api + 'books/' + id);
+    }
+
     add(book: Book) {
         return this.http.post(environment.api + 'books', book).map(
             (data: any) => {
                 if (data.success) {
                     const message = `"${book.title}" has been successfully added!`;
                     this.notificationService.success(message);
+                }
+
+                return data;
+            }
+        );
+    }
+
+    update(book: Book) {
+        return this.http.put(environment.api + 'books/' + book.id, book).map(
+            (data: any) => {
+                if (data.success) {
+                    const message = `${book.title} has been successfully updated!`;
+                    this.notificationService.success(message);
+                }
+
+                return data;
+            }
+        );
+    }
+
+    delete(book) {
+        return this.http.delete(environment.api + 'books/' + book.id).map(
+            (data: any) => {
+                if (data.success) {
+                    const message = `${book.title} has been successfully deleted!`;
+                    this.notificationService.info(message);
                 }
 
                 return data;

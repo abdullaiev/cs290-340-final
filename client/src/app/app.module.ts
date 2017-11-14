@@ -27,6 +27,7 @@ import {ReviewListComponent} from '../components/review-list/review-list.compone
 import {UserListComponent} from '../components/user-list/user-list.component';
 import {UsersService} from "../services/users.service";
 import {BookComponent} from './book/book.component';
+import {BookFormComponent} from '../components/book-form/book-form.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import {BookComponent} from './book/book.component';
         BookListComponent,
         ReviewListComponent,
         UserListComponent,
-        BookComponent
+        BookComponent,
+        BookFormComponent
     ],
     imports: [
         BrowserModule,
