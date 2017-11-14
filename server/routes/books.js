@@ -3,13 +3,23 @@ module.exports = function () {
     const express = require('express');
     const app = express();
 
-    app.get('/', function (req, res, next) {
+    app.get('/', getBooks);
+    app.get('/:authorID', getBooks);
+    app.post('/', addBook);
+    app.put('/:id', updateBook);
+    app.delete('/:id', deleteBook);
+
+    function getBooks(req, res, next) {
         //todo: get rating of every book too
-        const query = `SELECT book.id, book.title, category.name, 
-                       user.first_name, user.last_name, book.year from book
+        let query = `SELECT book.id, book.title, category.name as category_name, 
+                       user.first_name, user.last_name, book.year, written.author_id from book
                        INNER JOIN category ON book.category_id = category.id
                        INNER JOIN written ON written.book_id = book.id
                        INNER JOIN user on user.id = written.author_id`;
+
+        if (req.params.authorID) {
+            query += ` WHERE written.author_id = ${req.params.authorID}`;
+        }
 
         mysql.query(query, function (err, rows) {
             if (err) {
@@ -18,46 +28,7 @@ module.exports = function () {
                 res.send(rows);
             }
         });
-    });
-
-    app.post('/', addBook);
-
-    app.put('/:id', function (req, res) {
-        const id = req.params.id;
-        const {title, year, plot, category} = req.body;
-        const query = `UPDATE book SET 
-                       title = '${title}', 
-                       year = '${year}',
-                       plot = '${plot}',
-                       category_id = '${category}'
-                       WHERE id = ${id}`;
-
-        mysql.query(query, function (err) {
-            if (err) {
-                next(err);
-            } else {
-                res.send({
-                    success: true
-                });
-            }
-        });
-
-    });
-
-    app.delete('/:id', function (req, res) {
-        const id = req.params.id;
-        const query = `DELETE from book WHERE id = ${id}`;
-
-        mysql.query(query, function (err) {
-            if (err) {
-                next(err);
-            } else {
-                res.send({
-                    success: true
-                });
-            }
-        })
-    });
+    }
 
     function addBook(req, res, next) {
         const {title, year, plot, category_id} = req.body;
@@ -98,14 +69,50 @@ module.exports = function () {
                        VALUES ('${authorID}', '${bookID}')`;
 
         mysql.query(query, function (err) {
-           if (err) {
-               next(err);
-           } else {
-               res.send({
-                   success: true
-               })
-           }
+            if (err) {
+                next(err);
+            } else {
+                res.send({
+                    success: true
+                })
+            }
         });
+    }
+
+    function updateBook(req, res) {
+        const id = req.params.id;
+        const {title, year, plot, category} = req.body;
+        const query = `UPDATE book SET 
+                       title = '${title}', 
+                       year = '${year}',
+                       plot = '${plot}',
+                       category_id = '${category}'
+                       WHERE id = ${id}`;
+
+        mysql.query(query, function (err) {
+            if (err) {
+                next(err);
+            } else {
+                res.send({
+                    success: true
+                });
+            }
+        });
+    }
+
+    function deleteBook(req, res) {
+        const id = req.params.id;
+        const query = `DELETE from book WHERE id = ${id}`;
+
+        mysql.query(query, function (err) {
+            if (err) {
+                next(err);
+            } else {
+                res.send({
+                    success: true
+                });
+            }
+        })
     }
 
     return app;

@@ -4,6 +4,7 @@ export class Book {
     category_id: string;
     category_name: string;
     year: number;
+    author_id: number;
     first_name: string;
     last_name: string;
     plot: string;

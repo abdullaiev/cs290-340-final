@@ -22,6 +22,8 @@ import {UserComponent} from './user/user.component';
 import {UserProfileComponent} from '../components/user-profile/user-profile.component';
 import {AddBookComponent} from './add-book/add-book.component';
 import {CategoryService} from "../services/category.service";
+import { BookListComponent } from '../components/book-list/book-list.component';
+import { ReviewListComponent } from '../components/review-list/review-list.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +37,9 @@ import {CategoryService} from "../services/category.service";
         UsersComponent,
         UserComponent,
         UserProfileComponent,
-        AddBookComponent
+        AddBookComponent,
+        BookListComponent,
+        ReviewListComponent
     ],
     imports: [
         BrowserModule,

@@ -72,6 +72,7 @@ export class UserComponent implements OnInit, OnDestroy {
                 if (data.success) {
                     this.currentUser = this.profileUser = user;
                     this.editing = false;
+
                 }
             }
         );

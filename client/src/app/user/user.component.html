@@ -47,6 +47,7 @@
 
     <section *ngIf="profileUser?.author" class="books">
         <h2>Books:</h2>
+        <app-book-list [authorID]="profileUser?.id"></app-book-list>
     </section>
 
     <section class="reviews">
