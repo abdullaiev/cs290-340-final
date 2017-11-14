@@ -1,0 +1,54 @@
+<div class="profile scrollable">
+    <section *ngIf="!editing" class="info">
+        <h1>{{profileUser?.first_name}} {{profileUser?.last_name}}</h1>
+
+        <p>
+            {{profileUser?.city}}
+            <span *ngIf="profileUser?.country">, {{profileUser?.country}}</span>
+        </p>
+
+        <p>{{profileUser?.bio}}</p>
+
+        <div *ngIf="currentUser?.id == profileUser?.id">
+            <button *ngIf="profileUser?.author"
+                    mat-button
+                    mat-raised-button
+                    color="primary">
+                <mat-icon>queue</mat-icon>
+                Add New Book
+            </button>
+
+            <button (click)="editProfile()"
+                    mat-button
+                    mat-raised-button
+                    color="primary">
+                <mat-icon>mode_edit</mat-icon>
+                Edit Profile
+            </button>
+
+            <button (click)="deleteProfile()"
+                    mat-button
+                    mat-raised-button
+                    color="stress">
+                <mat-icon>delete_forever</mat-icon>
+                Delete Profile
+            </button>
+        </div>
+    </section>
+
+    <section *ngIf="editing" class="edit-profile">
+        <app-user-profile [mode]="'edit'"
+                          [user]="userEditCopy"
+                          (submitted)="updateProfile($event)"
+                          (cancelled)="cancelEditing()">
+        </app-user-profile>
+    </section>
+
+    <section *ngIf="profileUser?.author" class="books">
+        <h2>Books:</h2>
+    </section>
+
+    <section class="reviews">
+        <h2>Reviews:</h2>
+    </section>
+</div>

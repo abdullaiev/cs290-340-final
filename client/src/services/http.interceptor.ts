@@ -31,9 +31,10 @@ export class AppHttpInterceptor implements HttpInterceptor {
         let message: string;
 
         if (data && data.status === 401) {
-            message = 'Session expired. Please log in.';
             this.router.navigate(['login']);
-        } else if (data && data.error && data.error.message) {
+        }
+
+        if (data && data.error && data.error.message) {
             message = data.error.message;
         } else if (data.message) {
             message = data.message;

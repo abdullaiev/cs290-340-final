@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 import User from "../../types/user.type";
-import {AuthService} from "../../services/authentication.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
     selector: 'app-signup',
@@ -12,14 +12,12 @@ import {AuthService} from "../../services/authentication.service";
 
 
 export class SignupComponent {
-    user: User = new User();
-
-    constructor(private authService: AuthService,
+    constructor(private userService: UserService,
                 private router: Router) {
     }
 
-    signup() {
-        this.authService.signup(this.user).subscribe(
+    signup(user: User) {
+        this.userService.signup(user).subscribe(
             data => {
                 if (data.success) {
                     this.router.navigate(['/books']);

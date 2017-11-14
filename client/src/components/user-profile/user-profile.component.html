@@ -1,0 +1,91 @@
+<form class="user-profile-form"
+      (ngSubmit)="submit()"
+      #form="ngForm">
+  <h1 *ngIf="mode === 'new'">Sign up with Book Reviews and start exploring books today!</h1>
+  <h1 *ngIf="mode === 'edit'">Edit Profile:</h1>
+
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.first_name"
+           placeholder="First Name"
+           name="firstName"
+           type="text"
+           required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.last_name"
+           placeholder="Last Name"
+           name="lastName"
+           type="text"
+           required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.email"
+           placeholder="Email"
+           name="email"
+           type="email"
+           required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.password"
+           placeholder="Password"
+           name="password"
+           type="password"
+           required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.city"
+           placeholder="City"
+           name="city"
+           type="text">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.country"
+           placeholder="Country"
+           name="country"
+           type="text">
+  </mat-form-field>
+
+  <mat-form-field>
+      <textarea matInput
+                [(ngModel)]="user.bio"
+                placeholder="BIO"
+                name="bio">
+      </textarea>
+  </mat-form-field>
+
+  <mat-slide-toggle *ngIf="mode === 'new'"
+                    [(ngModel)]="user.author"
+                    name="author">
+    I am an author
+  </mat-slide-toggle>
+
+  <div class="submit-btn">
+    <button mat-button
+            mat-raised-button
+            color="primary"
+            [disabled]="!form.form.valid"
+            type="submit">
+      <span *ngIf="mode === 'new'">Sign Me Up</span>
+      <span *ngIf="mode === 'edit'">Save</span>
+    </button>
+
+    <button *ngIf="mode === 'edit'"
+            (click)="cancel()"
+            mat-button
+            mat-raised-button
+            type="button">
+      <span>Cancel</span>
+    </button>
+  </div>
+</form>

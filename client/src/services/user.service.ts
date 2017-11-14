@@ -8,7 +8,7 @@ import {environment} from '../environments/environment';
 import {NotificationService} from "./notification.service";
 
 @Injectable()
-export class AuthService {
+export class UserService {
     user: User;
     userEmitter: EventEmitter<User> = new EventEmitter();
 
@@ -20,7 +20,7 @@ export class AuthService {
     login(credentials: Credentials) {
         return this.http.post(environment.api + 'login', credentials).map((data: any) => {
             if (data.success) {
-                this.update(data.user, 'Successfully Logged In!');
+                this.updateCurrentUser(data.user, 'Successfully logged in!');
             }
 
             return data;
@@ -30,7 +30,7 @@ export class AuthService {
     signup(user: User) {
         return this.http.post(environment.api + 'signup', user).map((data: any) => {
             if (data.success) {
-                this.update(data.user, 'Successfully Signed Up. Welcome to Books Review!');
+                this.updateCurrentUser(data.user, 'Successfully signed up. Welcome to Books Review!');
             }
 
             return data;
@@ -40,7 +40,7 @@ export class AuthService {
     logout() {
         return this.http.get(environment.api + 'logout').map((data: any) => {
             if (data.success) {
-                this.update(null, 'Successfully Logged Out!');
+                this.updateCurrentUser(null, 'Successfully logged out!');
             }
 
             return data;
@@ -56,7 +56,7 @@ export class AuthService {
                     message = 'Welcome back!';
                 }
 
-                this.update(data.user, message);
+                this.updateCurrentUser(data.user, message);
             }
 
             return data;
@@ -67,7 +67,41 @@ export class AuthService {
         return this.user;
     }
 
-    private update(user: User, message?: string) {
+    getUserByID(id: number) {
+        return this.http.get(environment.api + 'users/' + id).map((data: Array<User>) => {
+            if (data && data.length) {
+                return data[0];
+            } else {
+                return null;
+            }
+        });
+    }
+
+    update(user: User) {
+        return this.http.put(environment.api + 'users/', user).map(
+            (data: any) => {
+                if (data.success) {
+                    this.updateCurrentUser(user, 'Profile has been successfully updated!');
+                }
+
+                return data;
+            }
+        );
+    }
+
+    delete() {
+        return this.http.delete(environment.api + 'users/').map(
+            (data: any) => {
+                if (data.success) {
+                    this.updateCurrentUser(null, 'Profile has been successfully deleted... We\'re sorry to see you go!');
+                }
+
+                return data;
+            }
+        );
+    }
+
+    private updateCurrentUser(user: User, message?: string) {
         this.user = user;
         this.userEmitter.emit(user);
 

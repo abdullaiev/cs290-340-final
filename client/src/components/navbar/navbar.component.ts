@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {AuthService} from "../../services/authentication.service";
+import {UserService} from "../../services/user.service";
 import User from "../../types/user.type";
 
 @Component({
@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
     user: User;
 
     constructor(private router: Router,
-                private authService: AuthService) {
+                private userService: UserService) {
     }
 
     ngOnInit() {
@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
     }
 
     checkIfLoggedIn() {
-        this.authService.isLoggedIn().subscribe((response: any) => {
+        this.userService.isLoggedIn().subscribe((response: any) => {
             if (response.isLoggedIn) {
                 this.user = response.user;
             }
@@ -30,13 +30,13 @@ export class NavbarComponent implements OnInit {
     }
 
     subscribe() {
-        this.authService.userEmitter.subscribe((user: User) => {
+        this.userService.userEmitter.subscribe((user: User) => {
             this.user = user;
         });
     }
 
     logout() {
-        this.authService.logout().subscribe((data: any) => {
+        this.userService.logout().subscribe((data: any) => {
             if (data.success) {
                 this.user = null;
                 this.router.navigate(['/login']);

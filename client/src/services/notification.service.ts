@@ -24,7 +24,7 @@ export class NotificationService {
 
     private show(message: string, type: string) {
         const config:MatSnackBarConfig = new MatSnackBarConfig;
-        config.duration = 2000;
+        config.duration = 3000;
         config.panelClass = type;
         this.snackBar.open(message, '', config);
     }

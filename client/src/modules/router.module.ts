@@ -8,7 +8,7 @@ import {SignupComponent} from "../app/signup/signup.component";
 import {BooksComponent} from "../app/books/books.component";
 import {AuthorsComponent} from "../app/authors/authors.component";
 import {UsersComponent} from "../app/users/users.component";
-import {ProfileComponent} from "../app/profile/profile.component";
+import {UserComponent} from "../app/user/user.component";
 
 const routes: Routes = [
     {
@@ -36,8 +36,8 @@ const routes: Routes = [
         component: UsersComponent
     },
     {
-        path: 'profile/:id',
-        component: ProfileComponent
+        path: 'users/:id',
+        component: UserComponent
     },
     {
         path: '**',

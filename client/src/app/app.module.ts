@@ -14,12 +14,12 @@ import {SignupComponent} from './signup/signup.component';
 import {BooksComponent} from './books/books.component';
 import {AuthorsComponent} from './authors/authors.component';
 import {UsersComponent} from './users/users.component';
-import {AuthService} from "../services/authentication.service";
+import {UserService} from "../services/user.service";
 import {AppHttpInterceptor} from "../services/http.interceptor";
 import {BooksService} from "../services/books.service";
 import {NotificationService} from "../services/notification.service";
-import { ProfileComponent } from './profile/profile.component';
-import {UsersService} from "../services/users.service";
+import {UserComponent} from './user/user.component';
+import {UserProfileComponent} from '../components/user-profile/user-profile.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +31,8 @@ import {UsersService} from "../services/users.service";
         BooksComponent,
         AuthorsComponent,
         UsersComponent,
-        ProfileComponent
+        UserComponent,
+        UserProfileComponent
     ],
     imports: [
         BrowserModule,
@@ -41,10 +42,9 @@ import {UsersService} from "../services/users.service";
         AppMaterialModule
     ],
     providers: [
-        AuthService,
+        UserService,
         BooksService,
         NotificationService,
-        UsersService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AppHttpInterceptor,

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {AuthService} from "../../services/authentication.service";
+import {UserService} from "../../services/user.service";
 import Credentials from "../../types/credentials.type";
 
 @Component({
@@ -16,11 +16,11 @@ export class LoginComponent {
     };
 
     constructor(private router: Router,
-                private authService: AuthService) {
+                private userService: UserService) {
     }
 
     login() {
-        this.authService.login(this.credentials).subscribe((data: any) => {
+        this.userService.login(this.credentials).subscribe((data: any) => {
             if (data.success) {
                 this.router.navigate(['/books']);
             }
