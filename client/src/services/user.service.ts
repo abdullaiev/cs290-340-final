@@ -2,8 +2,8 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map'
 
-import Credentials from "../types/credentials.type";
-import User from "../types/user.type";
+import {Credentials} from "../types/credentials.type";
+import {User} from "../types/user.type";
 import {environment} from '../environments/environment';
 import {NotificationService} from "./notification.service";
 
@@ -68,7 +68,7 @@ export class UserService {
     }
 
     getUserByID(id: number) {
-        return this.http.get(environment.api + 'users/' + id).map((data: Array<User>) => {
+        return this.http.get(environment.api + 'users/all/' + id).map((data: User[]) => {
             if (data && data.length) {
                 return data[0];
             } else {
@@ -78,7 +78,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put(environment.api + 'users/', user).map(
+        return this.http.put(environment.api + 'users', user).map(
             (data: any) => {
                 if (data.success) {
                     this.updateCurrentUser(user, 'Profile has been successfully updated!');
@@ -90,7 +90,7 @@ export class UserService {
     }
 
     delete() {
-        return this.http.delete(environment.api + 'users/').map(
+        return this.http.delete(environment.api + 'users').map(
             (data: any) => {
                 if (data.success) {
                     this.updateCurrentUser(null, 'Profile has been successfully deleted... We\'re sorry to see you go!');

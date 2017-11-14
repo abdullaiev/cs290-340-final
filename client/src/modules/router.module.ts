@@ -7,9 +7,10 @@ import {LoginComponent} from "../app/login/login.component";
 import {SignupComponent} from "../app/signup/signup.component";
 import {BooksComponent} from "../app/books/books.component";
 import {AuthorsComponent} from "../app/authors/authors.component";
-import {UsersComponent} from "../app/users/users.component";
 import {UserComponent} from "../app/user/user.component";
 import {AddBookComponent} from "../app/add-book/add-book.component";
+import {ReadersComponent} from "../app/readers/readers.component";
+import {BookComponent} from "../app/book/book.component";
 
 const routes: Routes = [
     {
@@ -29,6 +30,10 @@ const routes: Routes = [
         component: BooksComponent
     },
     {
+        path: 'books/:id',
+        component: BookComponent
+    },
+    {
         path: 'add-book',
         component: AddBookComponent
     },
@@ -37,8 +42,8 @@ const routes: Routes = [
         component: AuthorsComponent
     },
     {
-        path: 'users',
-        component: UsersComponent
+        path: 'readers',
+        component: ReadersComponent
     },
     {
         path: 'users/:id',

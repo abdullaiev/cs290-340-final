@@ -3,66 +3,53 @@ import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map'
 
 import {environment} from '../environments/environment';
-import {Book} from "../types/book.type";
-import {NotificationService} from "./notification.service";
+import {User} from "../types/user.type";
 import {DataSource} from "@angular/cdk/collections";
 import {Observable, BehaviorSubject} from "rxjs";
 import {MatSort} from "@angular/material";
 
 @Injectable()
-export class BooksService {
-    constructor(private http: HttpClient,
-                private notificationService: NotificationService) {
+export class UsersService {
+    constructor(private http: HttpClient) {
 
     }
 
-    fetch(sort: MatSort, authorID?: string) {
-        let URL = environment.api + 'books';
+    fetch(sort: MatSort, authors?: boolean) {
+        let URL = environment.api + 'users';
 
-        if (authorID) {
-            URL += '/' + authorID;
+        if (authors) {
+            URL += '/authors';
+        } else {
+            URL += '/all';
         }
 
         const observable = this.http.get(URL).map(
-            (data: Book[]) => {
+            (data: User[]) => {
                 return data;
             }
         );
 
-        return new BooksDataSource(new BooksDB(observable), sort);
-    }
-
-    add(book: Book) {
-        return this.http.post(environment.api + 'books', book).map(
-            (data: any) => {
-                if (data.success) {
-                    const message = `"${book.title}" has been successfully added!`;
-                    this.notificationService.success(message);
-                }
-
-                return data;
-            }
-        );
+        return new UsersDataSource(new UsersDB(observable), sort);
     }
 }
 
-export class BooksDB {
-    change: BehaviorSubject<Book[]> = new BehaviorSubject<Book[]>([]);
+export class UsersDB {
+    change: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
 
-    constructor(observable: Observable<Book[]>) {
+    constructor(observable: Observable<User[]>) {
         observable.subscribe(
-            (books: Book[]) => {
-                this.change.next(books);
+            (users: User[]) => {
+                this.change.next(users);
             }
         );
     }
 
-    get data(): Book[] {
+    get data(): User[] {
         return this.change.value;
     }
 }
 
-export class BooksDataSource extends DataSource<any> {
+export class UsersDataSource extends DataSource<any> {
     filterChange = new BehaviorSubject('');
 
     get filter(): string {
@@ -73,22 +60,22 @@ export class BooksDataSource extends DataSource<any> {
         this.filterChange.next(filter);
     }
 
-    constructor(private booksDB: BooksDB,
+    constructor(private usersDB: UsersDB,
                 private sort: MatSort) {
         super();
     }
 
-    connect(): Observable<Book[]> {
+    connect(): Observable<User[]> {
         const changes = [
-            this.booksDB.change,
+            this.usersDB.change,
             this.sort.sortChange,
             this.filterChange
         ];
 
         return Observable.merge(...changes).map(
             () => {
-                return this.getSortedData().filter((book: Book) => {
-                    return this.filterMatch(book);
+                return this.getSortedData().filter((user: User) => {
+                    return this.filterMatch(user);
                 });
             });
     }
@@ -98,7 +85,7 @@ export class BooksDataSource extends DataSource<any> {
      https://material.angular.io/components/table/overview#sorting
      */
     getSortedData() {
-        const data = this.booksDB.data.slice();
+        const data = this.usersDB.data.slice();
 
         if (!this.sort.active || this.sort.direction == '') {
             return data;
@@ -109,20 +96,14 @@ export class BooksDataSource extends DataSource<any> {
             let propB: number|string = '';
 
             switch (this.sort.active) {
-                case 'title':
-                    [propA, propB] = [a.title, b.title];
-                    break;
                 case 'name':
-                    [propA, propB] = [a.category_name, b.category_name];
-                    break;
-                case 'author':
                     [propA, propB] = [a.first_name + a.last_name, b.first_name + b.last_name];
                     break;
-                case 'year':
-                    [propA, propB] = [a.year, b.year];
+                case 'city':
+                    [propA, propB] = [a.city, b.city];
                     break;
-                case 'rate':
-                    [propA, propB] = [a.rate, b.rate];
+                case 'country':
+                    [propA, propB] = [a.country, b.country];
                     break;
             }
 
@@ -133,8 +114,8 @@ export class BooksDataSource extends DataSource<any> {
         });
     }
 
-    filterMatch(book: Book):boolean {
-        let searchStr = `${book.title} ${book.category_name} ${book.first_name} ${book.last_name} ${book.year}`;
+    filterMatch(user: User):boolean {
+        let searchStr = `${user.first_name} ${user.last_name} ${user.city} ${user.country}`;
         let query = this.filter.toLowerCase();
         searchStr = searchStr.toLowerCase();
         return searchStr.indexOf(query) != -1;

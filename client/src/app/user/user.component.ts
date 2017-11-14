@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
-import User from "../../types/user.type";
+import {User} from "../../types/user.type";
 import {UserService} from "../../services/user.service";
 import {Subscription} from "rxjs";
 

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter} from '@angular/core';
 
-import User from "../../types/user.type";
+import {User} from "../../types/user.type";
 
 @Component({
     selector: 'app-user-profile',

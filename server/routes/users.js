@@ -3,16 +3,16 @@ module.exports = function () {
     const mysql = require('../conf/db');
     const app = express();
 
-    app.get('/', function (req, res, next) {
+    app.get('/all', function (req, res, next) {
         getUsers({authors: false}, res, next);
     });
 
-    app.get('/:id', function (req, res, next) {
+    app.get('/all/:id', function (req, res, next) {
         getUsers({id: req.params.id}, res, next);
     });
 
     app.get('/authors', function (req, res, next) {
-        getUsers({authors: false}, res, next);
+        getUsers({authors: true}, res, next);
     });
 
     app.put('/', updateUser);
@@ -24,7 +24,11 @@ module.exports = function () {
         if (config.id) {
             query += `id = ${config.id}`;
         } else {
-            query += `author = ${config.authors ? 'TRUE' : 'FALSE'}`;
+            if (config.authors) {
+                query += `author is NOT NULL or author = 1`;
+            } else {
+                query += `author is NULL OR author = 0`;
+            }
         }
 
         mysql.query(query, function (err, rows) {

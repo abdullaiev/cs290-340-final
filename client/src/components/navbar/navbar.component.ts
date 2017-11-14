@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {UserService} from "../../services/user.service";
-import User from "../../types/user.type";
+import {User} from "../../types/user.type";
 
 @Component({
     selector: 'app-navbar',

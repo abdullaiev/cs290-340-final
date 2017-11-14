@@ -26,3 +26,16 @@ mat-form-field {
 .notification-info {
   opacity: .5;
 }
+
+.search {
+  padding: 10px 24px 0;
+  box-sizing: border-box;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}

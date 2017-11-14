@@ -1,4 +1,4 @@
-class User {
+export class User {
     id: number;
     first_name: string;
     last_name: string;
@@ -9,5 +9,3 @@ class User {
     bio: string;
     author: boolean;
 }
-
-export default User;

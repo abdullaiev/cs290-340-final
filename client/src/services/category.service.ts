@@ -13,7 +13,7 @@ export class CategoryService {
 
     fetch() {
         return this.http.get(environment.api + 'categories').map(
-            (data: Array<Category>) => {
+            (data: Category[]) => {
                 return data;
             }
         );

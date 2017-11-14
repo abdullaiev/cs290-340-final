@@ -16,7 +16,7 @@ import {UserService} from "../../services/user.service";
 
 export class AddBookComponent implements OnInit {
     book: Book = new Book();
-    categories: Observable<Array<Category>>;
+    categories: Observable<Category[]>;
 
     constructor(private router: Router,
                 private userService: UserService,
