@@ -1,6 +1,8 @@
 <div class="mat-elevation-z8">
     <mat-form-field floatPlaceholder="never" class="search">
-        <input matInput #filter placeholder="Search {{authors ? 'authors' : 'readers'}}">
+        <input matInput
+               #search
+               placeholder="Search {{authors ? 'authors' : 'readers'}}">
     </mat-form-field>
 
     <mat-table #table [dataSource]="users" matSort>

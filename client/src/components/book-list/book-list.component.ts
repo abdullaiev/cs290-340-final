@@ -13,9 +13,11 @@ import {ReviewService} from "../../services/review.service";
 })
 
 export class BookListComponent implements OnInit {
-    @ViewChild('filter') filter: ElementRef;
+    @ViewChild('search') search: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
+
     @Input() authorID: string;
+
     tableColumns = ['title', 'name', 'author', 'year', 'rate'];
     books: BooksDataSource;
 
@@ -25,28 +27,28 @@ export class BookListComponent implements OnInit {
 
     ngOnInit() {
         this.fetchBooks();
-        this.initFilter();
+        this.initSearch();
     }
 
     fetchBooks() {
         this.books = this.bookService.fetch(this.sort, this.authorID);
     }
 
-    initFilter() {
-        Observable.fromEvent(this.filter.nativeElement, 'keyup')
+    initSearch() {
+        Observable.fromEvent(this.search.nativeElement, 'keyup')
             .debounceTime(150)
             .distinctUntilChanged()
             .subscribe(() => {
-                this.onFilter();
+                this.onSearch();
             });
     }
 
-    onFilter() {
+    onSearch() {
         if (!this.books) {
             return;
         }
 
-        this.books.filter = this.filter.nativeElement.value;
+        this.books.search = this.search.nativeElement.value;
     }
 
     getStars(rate) {

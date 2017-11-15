@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Input, ViewChild, ElementRef} from '@angular/core';
 import {MatSort} from "@angular/material";
+import {Observable} from "rxjs";
 
 import {UsersService, UsersDataSource} from "../../services/users.service";
 
@@ -11,8 +12,9 @@ import {UsersService, UsersDataSource} from "../../services/users.service";
 })
 export class UserListComponent implements OnInit {
     @Input() authors:boolean;
-    @ViewChild('filter') filter: ElementRef;
+    @ViewChild('search') search: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
+
     users: UsersDataSource;
     tableColumns = ['name', 'city', 'country'];
 
@@ -21,9 +23,27 @@ export class UserListComponent implements OnInit {
 
     ngOnInit() {
         this.fetchUsers();
+        this.initSearch();
     }
 
     fetchUsers() {
         this.users = this.usersService.fetch(this.sort, this.authors);
+    }
+
+    initSearch() {
+        Observable.fromEvent(this.search.nativeElement, 'keyup')
+            .debounceTime(150)
+            .distinctUntilChanged()
+            .subscribe(() => {
+                this.onSearch();
+            });
+    }
+
+    onSearch() {
+        if (!this.users) {
+            return;
+        }
+
+        this.users.search = this.search.nativeElement.value;
     }
 }

@@ -1,6 +1,6 @@
 <div *ngIf="profileUser" class="profile scrollable">
     <section *ngIf="!editing" class="info">
-        <h1>{{profileUser?.first_name}} {{profileUser?.last_name}}</h1>
+        <h1>{{profileUser?.first_name}} {{profileUser?.last_name}}, {{profileUser.author ? 'author' : 'reader'}}</h1>
 
         <p>
             {{profileUser?.city}}

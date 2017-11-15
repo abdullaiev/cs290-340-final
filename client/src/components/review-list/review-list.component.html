@@ -1,5 +1,6 @@
 <div class="mat-elevation-z8">
-    <mat-table #table [dataSource]="reviews">
+    <mat-table #table
+               [dataSource]="reviews">
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
             <mat-cell *matCellDef="let review;"

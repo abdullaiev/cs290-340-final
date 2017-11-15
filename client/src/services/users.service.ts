@@ -50,14 +50,14 @@ export class UsersDB {
 }
 
 export class UsersDataSource extends DataSource<any> {
-    filterChange = new BehaviorSubject('');
+    searchChange = new BehaviorSubject('');
 
-    get filter(): string {
-        return this.filterChange.value;
+    get search(): string {
+        return this.searchChange.value;
     }
 
-    set filter(filter: string) {
-        this.filterChange.next(filter);
+    set search(search: string) {
+        this.searchChange.next(search);
     }
 
     constructor(private usersDB: UsersDB,
@@ -69,7 +69,7 @@ export class UsersDataSource extends DataSource<any> {
         const changes = [
             this.usersDB.change,
             this.sort.sortChange,
-            this.filterChange
+            this.searchChange
         ];
 
         return Observable.merge(...changes).map(
@@ -116,7 +116,7 @@ export class UsersDataSource extends DataSource<any> {
 
     filterMatch(user: User):boolean {
         let searchStr = `${user.first_name} ${user.last_name} ${user.city} ${user.country}`;
-        let query = this.filter.toLowerCase();
+        let query = this.search.toLowerCase();
         searchStr = searchStr.toLowerCase();
         return searchStr.indexOf(query) != -1;
     }

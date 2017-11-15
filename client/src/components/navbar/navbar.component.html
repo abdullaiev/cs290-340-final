@@ -2,6 +2,7 @@
     <button mat-button
             routerLink=""
             class="logo">
+        <mat-icon>thumbs_up_down</mat-icon>
         Book Reviews
     </button>
 
@@ -16,6 +17,7 @@
     <button *ngIf="user"
             mat-button
             [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
         {{user?.first_name}} {{user?.last_name}}
     </button>
 

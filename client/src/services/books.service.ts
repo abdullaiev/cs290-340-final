@@ -93,14 +93,14 @@ export class BooksDB {
 }
 
 export class BooksDataSource extends DataSource<any> {
-    filterChange = new BehaviorSubject('');
+    searchChange = new BehaviorSubject('');
 
-    get filter(): string {
-        return this.filterChange.value;
+    get search(): string {
+        return this.searchChange.value;
     }
 
-    set filter(filter: string) {
-        this.filterChange.next(filter);
+    set search(search: string) {
+        this.searchChange.next(search);
     }
 
     constructor(private booksDB: BooksDB,
@@ -112,7 +112,7 @@ export class BooksDataSource extends DataSource<any> {
         const changes = [
             this.booksDB.change,
             this.sort.sortChange,
-            this.filterChange
+            this.searchChange
         ];
 
         return Observable.merge(...changes).map(
@@ -165,7 +165,7 @@ export class BooksDataSource extends DataSource<any> {
 
     filterMatch(book: Book):boolean {
         let searchStr = `${book.title} ${book.category_name} ${book.first_name} ${book.last_name} ${book.year}`;
-        let query = this.filter.toLowerCase();
+        let query = this.search.toLowerCase();
         searchStr = searchStr.toLowerCase();
         return searchStr.indexOf(query) != -1;
     }
