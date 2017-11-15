@@ -1,9 +1,8 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 
-import {ReviewService, ReviewDataSource} from "../../services/review.service";
-import {User} from "../../types/user.type";
-import {UserService} from "../../services/user.service";
+import {ReviewService, ReviewDataSource, ReviewsDB} from "../../services/review.service";
 import {Review} from "../../types/review.type";
+import {MatSort} from "@angular/material";
 
 @Component({
     selector: 'app-review-list',
@@ -13,6 +12,8 @@ import {Review} from "../../types/review.type";
 export class ReviewListComponent implements OnInit {
     @Input() mode: string;
     @Input() id: number;
+
+    @ViewChild(MatSort) sort: MatSort;
 
     reviews: ReviewDataSource;
     tableColumns: string[];
@@ -46,7 +47,7 @@ export class ReviewListComponent implements OnInit {
                 this.qty = reviews && reviews.length;
             }
         );
-        this.reviews = new ReviewDataSource(observable);
+        this.reviews = new ReviewDataSource(new ReviewsDB(observable), this.sort);
     }
 
     getStars(n: number) {

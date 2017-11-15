@@ -49,7 +49,7 @@ module.exports = function () {
                        FROM review 
                        INNER JOIN user on review.user_id = user.id
                        INNER JOIN book on review.book_id = book.id 
-                       WHERE ${type} = ${id}`;
+                       WHERE ${type} = ${id} ORDER BY review.posted DESC`;
 
         mysql.query(query, function (err, rows) {
             if (err) {

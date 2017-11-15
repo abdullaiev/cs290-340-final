@@ -1,8 +1,10 @@
 <div class="mat-elevation-z8">
-    <mat-table *ngIf="qty" #table
-               [dataSource]="reviews">
+    <mat-table [hidden]="!qty"
+               [dataSource]="reviews"
+               #table
+               matSort>
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>User</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>User</mat-header-cell>
             <mat-cell *matCellDef="let review;"
                       [routerLink]="['/users', review.user_id]"
                       class="link">
@@ -11,7 +13,7 @@
         </ng-container>
 
         <ng-container matColumnDef="book">
-            <mat-header-cell *matHeaderCellDef>Book</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Book</mat-header-cell>
             <mat-cell *matCellDef="let review;"
                       [routerLink]="['/books', review.book_id]"
                       class="link">{{review.book_title}}</mat-cell>
@@ -23,7 +25,7 @@
         </ng-container>
 
         <ng-container matColumnDef="rate">
-            <mat-header-cell *matHeaderCellDef>Rate</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Rate</mat-header-cell>
             <mat-cell *matCellDef="let review;">
                 <mat-icon *ngFor="let star of getStars(review.rate)"
                           class="star">
@@ -33,7 +35,7 @@
         </ng-container>
 
         <ng-container matColumnDef="posted">
-            <mat-header-cell *matHeaderCellDef>Posted</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Posted</mat-header-cell>
             <mat-cell *matCellDef="let review;">
                 {{review.posted | date:'short'}}
             </mat-cell>

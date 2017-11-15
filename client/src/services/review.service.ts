@@ -6,7 +6,8 @@ import {environment} from '../environments/environment';
 import {Review} from "../types/review.type";
 import {NotificationService} from "./notification.service";
 import {DataSource} from "@angular/cdk/collections";
-import {Observable} from "rxjs";
+import {Observable, BehaviorSubject} from "rxjs";
+import {MatSort} from "@angular/material";
 
 @Injectable()
 export class ReviewService {
@@ -76,14 +77,75 @@ export class ReviewService {
     }
 }
 
+export class ReviewsDB {
+    change: BehaviorSubject<Review[]> = new BehaviorSubject<Review[]>([]);
+
+    constructor(observable: Observable<Review[]>) {
+        observable.subscribe(
+            (reviews: Review[]) => {
+                this.change.next(reviews);
+            }
+        );
+    }
+
+    get data(): Review[] {
+        return this.change.value;
+    }
+}
+
 export class ReviewDataSource extends DataSource<any> {
-    constructor(private observable: Observable<Review[]>) {
+    constructor(private reviewDB: ReviewsDB,
+                private sort: MatSort) {
         super();
     }
 
     connect(): Observable<Review[]> {
-        return this.observable;
+        const changes = [
+            this.reviewDB.change,
+            this.sort.sortChange
+        ];
+
+        return Observable.merge(...changes).map(
+            () => {
+                return this.getSortedData();
+            });
     }
 
-    disconnect() {}
+    /*
+     this function follows an example at Angular Material website:
+     https://material.angular.io/components/table/overview#sorting
+     */
+    getSortedData() {
+        const data = this.reviewDB.data.slice();
+
+        if (!this.sort.active || this.sort.direction == '') {
+            return data;
+        }
+
+        return data.sort((a, b) => {
+            let propA: number|string = '';
+            let propB: number|string = '';
+
+            switch (this.sort.active) {
+                case 'name':
+                    [propA, propB] = [a.first_name + a.last_name, b.first_name + b.last_name];
+                    break;
+                case 'book':
+                    [propA, propB] = [a.book_title, b.book_title];
+                    break;
+                case 'posted':
+                    [propA, propB] = [a.posted, b.posted];
+                    break;
+            }
+
+            let valueA = isNaN(+propA) ? propA : +propA;
+            let valueB = isNaN(+propB) ? propB : +propB;
+
+            return (valueA < valueB ? -1 : 1) * (this.sort.direction == 'asc' ? 1 : -1);
+        });
+
+    }
+
+    disconnect() {
+    }
 }
