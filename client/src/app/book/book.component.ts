@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 import {Book} from "../../types/book.type";
@@ -7,6 +7,7 @@ import {Subscription} from "rxjs";
 import {User} from "../../types/user.type";
 import {UserService} from "../../services/user.service";
 import {Review} from "../../types/review.type";
+import {ReviewListComponent} from "../../components/review-list/review-list.component";
 
 @Component({
     selector: 'app-book',
@@ -22,6 +23,8 @@ export class BookComponent implements OnInit, OnDestroy {
     bookEditCopy: Book;
     userSubscription: Subscription;
     paramsSubscription: Subscription;
+
+    @ViewChild(ReviewListComponent) private reviewList: ReviewListComponent;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -89,17 +92,9 @@ export class BookComponent implements OnInit, OnDestroy {
         );
     }
 
-    writeReview() {
-        this.review = new Review();
-        this.writingReview = true;
-    }
-
-    cancelReview() {
+    onReviewAdd() {
         this.writingReview = false;
-    }
-
-    postReview() {
-
+        this.reviewList.fetchReviews();
     }
 
 

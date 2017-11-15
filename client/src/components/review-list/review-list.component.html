@@ -1,3 +1,38 @@
-<p>
-  review-list works!
-</p>
+<div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="reviews">
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *matCellDef="let review;"
+                      [routerLink]="['/users', review.user_id]"
+                      class="link">
+                {{review.first_name}} {{review.last_name}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="book">
+            <mat-header-cell *matHeaderCellDef>Book</mat-header-cell>
+            <mat-cell *matCellDef="let review;"
+                      [routerLink]="['/books', review.book_id]"
+                      class="link">{{review.book_title}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="review">
+            <mat-header-cell *matHeaderCellDef>Review</mat-header-cell>
+            <mat-cell *matCellDef="let review;">{{review.review}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rate">
+            <mat-header-cell *matHeaderCellDef>Rate</mat-header-cell>
+            <mat-cell *matCellDef="let review;">
+                <mat-icon *ngFor="let star of getStars(review.rate)"
+                          class="star">
+                    {{star}}
+                </mat-icon>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+        <mat-row *matRowDef="let review; columns: tableColumns;">
+        </mat-row>
+    </mat-table>
+</div>

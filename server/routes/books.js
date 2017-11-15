@@ -13,7 +13,7 @@ module.exports = function () {
     function getBooks(req, res, next) {
         let query = `SELECT book.id, book.title, category.id as category_id, 
                      category.name as category_name, user.first_name, user.last_name, 
-                     book.year, written.author_id, 
+                     book.year, book.plot, written.author_id, 
                      (
                         SELECT AVG(rate) from review 
                         WHERE review.book_id = written.book_id 
@@ -115,7 +115,7 @@ module.exports = function () {
 
     function deleteBook(req, res, next) {
         const id = req.params.id;
-        const query = `DELETE from book WHERE id = ${id}`;
+        const query = `DELETE FROM book WHERE id = ${id}`;
 
         mysql.query(query, function (err) {
             if (err) {

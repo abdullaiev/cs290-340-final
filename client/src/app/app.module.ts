@@ -28,6 +28,8 @@ import {UserListComponent} from '../components/user-list/user-list.component';
 import {UsersService} from "../services/users.service";
 import {BookComponent} from './book/book.component';
 import {BookFormComponent} from '../components/book-form/book-form.component';
+import {ReviewService} from "../services/review.service";
+import {ReviewFormComponent} from '../components/review-form/review-form.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +48,8 @@ import {BookFormComponent} from '../components/book-form/book-form.component';
         ReviewListComponent,
         UserListComponent,
         BookComponent,
-        BookFormComponent
+        BookFormComponent,
+        ReviewFormComponent
     ],
     imports: [
         BrowserModule,
@@ -61,6 +64,7 @@ import {BookFormComponent} from '../components/book-form/book-form.component';
         NotificationService,
         CategoryService,
         UsersService,
+        ReviewService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AppHttpInterceptor,

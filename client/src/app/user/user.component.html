@@ -1,4 +1,4 @@
-<div class="profile scrollable">
+<div *ngIf="profileUser" class="profile scrollable">
     <section *ngIf="!editing" class="info">
         <h1>{{profileUser?.first_name}} {{profileUser?.last_name}}</h1>
 
@@ -52,5 +52,6 @@
 
     <section class="reviews">
         <h2>Reviews:</h2>
+        <app-review-list [mode]="'user'" [id]="profileUser?.id"></app-review-list>
     </section>
 </div>

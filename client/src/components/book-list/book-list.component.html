@@ -28,12 +28,17 @@
 
     <ng-container matColumnDef="rate">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Rate</mat-header-cell>
-      <mat-cell *matCellDef="let book;">{{book.rate}}</mat-cell>
+      <mat-cell *matCellDef="let book;">
+        <mat-icon *ngFor="let star of getStars(book.rate)"
+                  class="star">
+            {{star}}
+        </mat-icon>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
     <mat-row *matRowDef="let book; columns: tableColumns;"
              [routerLink]="['/books', book.id]"
-             class="clickable"></mat-row>
+             class="clickable-row"></mat-row>
   </mat-table>
 </div>

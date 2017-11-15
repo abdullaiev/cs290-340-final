@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 import {User} from "../../types/user.type";
 import {UserService} from "../../services/user.service";
 import {Subscription} from "rxjs";
+import {BookListComponent} from "../../components/book-list/book-list.component";
 
 @Component({
     selector: 'app-user',
@@ -18,6 +19,8 @@ export class UserComponent implements OnInit, OnDestroy {
     userEditCopy: User;
     paramsSubscription: Subscription;
     userSubscription: Subscription;
+
+    @ViewChild(BookListComponent) private bookList: BookListComponent;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -72,7 +75,7 @@ export class UserComponent implements OnInit, OnDestroy {
                 if (data.success) {
                     this.currentUser = this.profileUser = user;
                     this.editing = false;
-
+                    this.bookList.fetchBooks();
                 }
             }
         );

@@ -3,6 +3,7 @@ import {MatSort} from "@angular/material";
 
 import {BooksService, BooksDataSource} from "../../services/books.service";
 import {Observable} from "rxjs";
+import {ReviewService} from "../../services/review.service";
 
 @Component({
     selector: 'app-book-list',
@@ -18,7 +19,8 @@ export class BookListComponent implements OnInit {
     tableColumns = ['title', 'name', 'author', 'year', 'rate'];
     books: BooksDataSource;
 
-    constructor(private bookService: BooksService) {
+    constructor(private bookService: BooksService,
+                private reviewService: ReviewService) {
     }
 
     ngOnInit() {
@@ -45,5 +47,9 @@ export class BookListComponent implements OnInit {
         }
 
         this.books.filter = this.filter.nativeElement.value;
+    }
+
+    getStars(rate) {
+        return this.reviewService.getStars(rate);
     }
 }

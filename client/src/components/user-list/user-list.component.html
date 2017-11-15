@@ -22,7 +22,7 @@
         <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
         <mat-row *matRowDef="let user; columns: tableColumns;"
                  [routerLink]="['/users', user?.id]"
-                 class="clickable">
+                 class="clickable-row">
         </mat-row>
     </mat-table>
 </div>

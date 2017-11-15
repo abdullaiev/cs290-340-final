@@ -1,0 +1,8 @@
+.review-form {
+  max-width: 400px;
+  margin: 50px 0;
+}
+
+.star {
+  cursor: pointer;
+}

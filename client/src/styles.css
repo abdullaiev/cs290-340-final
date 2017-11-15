@@ -32,10 +32,22 @@ mat-form-field {
   box-sizing: border-box;
 }
 
-.clickable {
+.clickable-row {
   cursor: pointer;
 }
 
-.clickable:hover {
+.clickable-row:hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.star {
+  color: #ffb500;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
 }

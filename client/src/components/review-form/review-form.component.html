@@ -1,0 +1,40 @@
+<form class="review-form"
+      (ngSubmit)="submit()"
+      #form="ngForm">
+  <h1>{{mode === 'new' ? 'Add a new' : 'Edit'}} review:</h1>
+
+  <mat-form-field>
+    <textarea matInput
+           [(ngModel)]="review.review"
+           placeholder="Review"
+           name="title"
+           required>
+    </textarea>
+  </mat-form-field>
+
+  <p>Rate the book from 1 to 5:</p>
+  <p>
+    <mat-icon *ngFor="let star of getStars(); let i = index"
+              (click)="review.rate = i + 1"
+              class="star">
+      {{star}}
+    </mat-icon>
+  </p>
+
+  <div class="submit-btn">
+    <button mat-button
+            mat-raised-button
+            color="primary"
+            [disabled]="!form.form.valid"
+            type="submit">
+      <span>{{mode === 'new' ? 'Add' : 'Update'}}</span>
+    </button>
+
+    <button mat-button
+            mat-raised-button
+            (click)="cancel()"
+            type="button">
+      <span>Cancel</span>
+    </button>
+  </div>
+</form>
