@@ -12,8 +12,8 @@ module.exports = function () {
     });
 
     app.post('/book/:id', function (req, res, next) {
-        const query = `INSERT INTO review (book_id, user_id, review, rate) VALUES (?, ?, ?, ?);`;
-        const values = [req.params.id, req.session.user.id, req.body.review, req.body.rate];
+        const query = `INSERT INTO review (book_id, user_id, review, rate, posted) VALUES (?, ?, ?, ?, ?);`;
+        const values = [req.params.id, req.session.user.id, req.body.review, req.body.rate, Date.now()];
 
         mysql.query(query, values, function (err) {
            if (err) {

@@ -32,6 +32,13 @@
             </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="posted">
+            <mat-header-cell *matHeaderCellDef>Posted</mat-header-cell>
+            <mat-cell *matCellDef="let review;">
+                {{review.posted | date:'short'}}
+            </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
         <mat-row *matRowDef="let review; columns: tableColumns;">
         </mat-row>
