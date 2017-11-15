@@ -16,20 +16,18 @@ export class BooksService {
 
     }
 
-    fetch(sort: MatSort, authorID?: string) {
+    fetch(authorID?: string) {
         let URL = environment.api + 'books';
 
         if (authorID) {
             URL += '/author/' + authorID;
         }
 
-        const observable = this.http.get(URL).map(
+        return this.http.get(URL).map(
             (data: Book[]) => {
                 return data;
             }
         );
-
-        return new BooksDataSource(new BooksDB(observable), sort);
     }
 
     get(id: number) {

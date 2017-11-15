@@ -3,6 +3,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {ReviewService, ReviewDataSource} from "../../services/review.service";
 import {User} from "../../types/user.type";
 import {UserService} from "../../services/user.service";
+import {Review} from "../../types/review.type";
 
 @Component({
     selector: 'app-review-list',
@@ -15,6 +16,7 @@ export class ReviewListComponent implements OnInit {
 
     reviews: ReviewDataSource;
     tableColumns: string[];
+    qty: number;
 
     constructor(private reviewService: ReviewService) {
     }
@@ -38,7 +40,13 @@ export class ReviewListComponent implements OnInit {
     }
 
     fetchReviews() {
-        this.reviews = this.reviewService.fetch(this.mode, this.id);
+        let observable = this.reviewService.fetch(this.mode, this.id);
+        observable.subscribe(
+            (reviews: Review[]) => {
+                this.qty = reviews && reviews.length;
+            }
+        );
+        this.reviews = new ReviewDataSource(observable);
     }
 
     getStars(n: number) {

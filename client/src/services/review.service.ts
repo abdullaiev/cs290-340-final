@@ -22,7 +22,7 @@ export class ReviewService {
                 return reviews;
             }
         );
-        return new ReviewDataSource(observable);
+        return observable;
     }
 
     add(review: Review) {

@@ -20,7 +20,15 @@ module.exports = function () {
     app.delete('/', deleteUser);
 
     function getUsers(config, res, next) {
-        let query = `SELECT id, first_name, last_name, email, city, country, bio, author from user WHERE `;
+        let query = `SELECT id, first_name, last_name, email, city, country, bio, author,
+                        (SELECT COUNT(written.author_id) from written 
+                            WHERE user.id = written.author_id 
+                            GROUP BY written.author_id) as books,
+                        (SELECT COUNT(review.user_id) from review 
+                            WHERE user.id = review.user_id 
+                            GROUP BY review.user_id) as reviews
+                     from user WHERE `;
+
         if (config.id) {
             query += `id = ${config.id}`;
         } else {

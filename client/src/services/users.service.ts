@@ -105,6 +105,12 @@ export class UsersDataSource extends DataSource<any> {
                 case 'country':
                     [propA, propB] = [a.country, b.country];
                     break;
+                case 'books':
+                    [propA, propB] = [a.books, b.books];
+                    break;
+                case 'reviews':
+                    [propA, propB] = [a.reviews, b.reviews];
+                    break;
             }
 
             let valueA = isNaN(+propA) ? propA : +propA;

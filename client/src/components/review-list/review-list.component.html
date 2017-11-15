@@ -1,8 +1,8 @@
 <div class="mat-elevation-z8">
-    <mat-table #table
+    <mat-table *ngIf="qty" #table
                [dataSource]="reviews">
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>User</mat-header-cell>
             <mat-cell *matCellDef="let review;"
                       [routerLink]="['/users', review.user_id]"
                       class="link">
@@ -43,4 +43,9 @@
         <mat-row *matRowDef="let review; columns: tableColumns;">
         </mat-row>
     </mat-table>
+
+    <p *ngIf="!qty" class="no-reviews">
+        <span *ngIf="mode === 'book'">This book doesn't have any reviews yet.</span>
+        <span *ngIf="mode === 'user'">This user has not posted any reviews yet.</span>
+    </p>
 </div>

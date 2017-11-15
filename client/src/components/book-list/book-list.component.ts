@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewEncapsulation, Input, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import {MatSort} from "@angular/material";
-
-import {BooksService, BooksDataSource} from "../../services/books.service";
 import {Observable} from "rxjs";
+
+import {BooksService, BooksDataSource, BooksDB} from "../../services/books.service";
 import {ReviewService} from "../../services/review.service";
+import {Book} from "../../types/book.type";
 
 @Component({
     selector: 'app-book-list',
     templateUrl: './book-list.component.html',
-    styleUrls: ['./book-list.component.css'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./book-list.component.css']
 })
 
 export class BookListComponent implements OnInit {
@@ -20,6 +20,7 @@ export class BookListComponent implements OnInit {
 
     tableColumns = ['title', 'name', 'author', 'year', 'rate'];
     books: BooksDataSource;
+    qty: number;
 
     constructor(private bookService: BooksService,
                 private reviewService: ReviewService) {
@@ -31,7 +32,15 @@ export class BookListComponent implements OnInit {
     }
 
     fetchBooks() {
-        this.books = this.bookService.fetch(this.sort, this.authorID);
+        let observable = this.bookService.fetch(this.authorID);
+
+        observable.subscribe(
+            (books: Book[]) => {
+                this.qty = books && books.length;
+            }
+        );
+
+        this.books = new BooksDataSource(new BooksDB(observable), this.sort);
     }
 
     initSearch() {

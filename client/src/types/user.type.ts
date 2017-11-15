@@ -8,4 +8,6 @@ export class User {
     country: string;
     bio: string;
     author: boolean;
+    reviews: number;
+    books: number;
 }

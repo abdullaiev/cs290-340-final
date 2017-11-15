@@ -1,3 +1,11 @@
+h1 {
+  margin-bottom: 0;
+}
+
+.rate {
+  margin-top: 10px;
+}
+
 .reviews {
   margin: 50px 0;
 }

@@ -1,16 +1,30 @@
 <div *ngIf="book" class="scrollable">
     <section *ngIf="!editing">
         <h1>{{book.title}}</h1>
-        <p>{{book.category_name}}</p>
-        <p>{{book.first_name}} {{book.last_name}}</p>
-        <p>{{book.year}}</p>
-        <P>{{book.plot}}</P>
+        <p class="rate">
+            <mat-icon *ngFor="let star of getStars(book.rate)"
+                      class="star">
+                {{star}}
+            </mat-icon>
+        </p>
+        <p>
+            <span>{{book.category_name}}, </span>
+            <span>{{book.year}}</span>
+        </p>
+        <p>
+            <b>Author<span>s</span>:</b>
+            <span>{{book.first_name}} {{book.last_name}}</span>
+        </p>
+        <p>
+            <b>Plot:</b>
+            {{book.plot}}
+        </p>
 
         <span *ngIf="!writingReview">
             <button (click)="writingReview = true"
                     mat-button
                     mat-raised-button
-                    color="primary">
+                    color="accent">
                 <mat-icon>mode_edit</mat-icon>
                 Write a Review
             </button>

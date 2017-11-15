@@ -24,6 +24,7 @@ export class UserListComponent implements OnInit {
     ngOnInit() {
         this.fetchUsers();
         this.initSearch();
+        this.initTable();
     }
 
     fetchUsers() {
@@ -37,6 +38,14 @@ export class UserListComponent implements OnInit {
             .subscribe(() => {
                 this.onSearch();
             });
+    }
+
+    initTable() {
+        if (this.authors) {
+            this.tableColumns.push('books');
+        } else {
+            this.tableColumns.push('reviews');
+        }
     }
 
     onSearch() {

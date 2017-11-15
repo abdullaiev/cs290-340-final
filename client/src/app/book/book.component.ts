@@ -8,6 +8,7 @@ import {User} from "../../types/user.type";
 import {UserService} from "../../services/user.service";
 import {Review} from "../../types/review.type";
 import {ReviewListComponent} from "../../components/review-list/review-list.component";
+import {ReviewService} from "../../services/review.service";
 
 @Component({
     selector: 'app-book',
@@ -23,12 +24,15 @@ export class BookComponent implements OnInit, OnDestroy {
     bookEditCopy: Book;
     userSubscription: Subscription;
     paramsSubscription: Subscription;
+    id: number;
 
     @ViewChild(ReviewListComponent) private reviewList: ReviewListComponent;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private bookService: BooksService, private userService: UserService) {
+                private bookService: BooksService,
+                private userService: UserService,
+                private reviewService: ReviewService) {
     }
 
     ngOnInit() {
@@ -39,7 +43,8 @@ export class BookComponent implements OnInit, OnDestroy {
 
     subscribeToURLChanges() {
         this.paramsSubscription = this.route.params.subscribe((params: Params) => {
-            this.getBook(Number(params['id']));
+            this.id = params['id'];
+            this.getBook();
         });
     }
 
@@ -53,8 +58,8 @@ export class BookComponent implements OnInit, OnDestroy {
         this.user = this.userService.getCurrentUser();
     }
 
-    getBook(id: number) {
-        this.bookService.get(id).subscribe(
+    getBook() {
+        this.bookService.get(this.id).subscribe(
             (book: Book) => {
                 this.book = book;
             });
@@ -95,8 +100,13 @@ export class BookComponent implements OnInit, OnDestroy {
     onReviewAdd() {
         this.writingReview = false;
         this.reviewList.fetchReviews();
+        this.getBook();
     }
 
+    getStars() {
+        const rate = this.book && this.book.rate;
+        return this.reviewService.getStars(rate);
+    }
 
     ngOnDestroy() {
         this.paramsSubscription.unsubscribe();

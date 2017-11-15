@@ -21,6 +21,16 @@
             <mat-cell *matCellDef="let user;">{{user.country ? user.country : 'n/a'}}</mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="books">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Books</mat-header-cell>
+            <mat-cell *matCellDef="let user;">{{user.books ? user.books : 0}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="reviews">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Reviews</mat-header-cell>
+            <mat-cell *matCellDef="let user;">{{user.reviews ? user.reviews : 0}}</mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
         <mat-row *matRowDef="let user; columns: tableColumns;"
                  [routerLink]="['/users', user?.id]"

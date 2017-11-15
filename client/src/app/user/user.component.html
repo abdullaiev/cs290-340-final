@@ -3,8 +3,7 @@
         <h1>{{profileUser?.first_name}} {{profileUser?.last_name}}, {{profileUser.author ? 'author' : 'reader'}}</h1>
 
         <p>
-            {{profileUser?.city}}
-            <span *ngIf="profileUser?.country">, {{profileUser?.country}}</span>
+            {{profileUser?.city}}<span *ngIf="profileUser?.country">, {{profileUser?.country}}</span>
         </p>
 
         <p>{{profileUser?.bio}}</p>
@@ -14,7 +13,7 @@
                     routerLink="/add-book"
                     mat-button
                     mat-raised-button
-                    color="primary">
+                    color="accent">
                 <mat-icon>queue</mat-icon>
                 Add New Book
             </button>
@@ -29,8 +28,7 @@
 
             <button (click)="deleteProfile()"
                     mat-button
-                    mat-raised-button
-                    color="stress">
+                    mat-raised-button>
                 <mat-icon>delete_forever</mat-icon>
                 Delete Profile
             </button>
