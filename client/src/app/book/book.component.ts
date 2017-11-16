@@ -70,12 +70,13 @@ export class BookComponent implements OnInit, OnDestroy {
         this.editing = true;
     }
 
-    onUpdate(book: Book) {
-        this.book = Object.assign({}, book);
+    onUpdate() {
+        this.getBook();
         this.editing = false;
     }
 
     onCancel() {
+        this.getBook();
         this.editing = false;
     }
 
@@ -106,6 +107,22 @@ export class BookComponent implements OnInit, OnDestroy {
     getStars() {
         const rate = this.book && this.book.rate;
         return this.reviewService.getStars(rate);
+    }
+
+    isAuthor() {
+        const authors = this.book && this.book.authors;
+
+        if (!authors || !this.user) {
+            return;
+        }
+
+        for (let author of authors) {
+            if (this.user.id == author.author_id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     ngOnDestroy() {

@@ -9,3 +9,11 @@ h1 {
 .reviews {
   margin: 50px 0;
 }
+
+.authors {
+  margin: 25px 0;
+}
+
+.authors p {
+  margin-bottom: 5px;
+}

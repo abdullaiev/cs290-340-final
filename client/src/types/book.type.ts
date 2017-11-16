@@ -1,3 +1,6 @@
+import {Author} from "./author.type";
+import {AuthorChanges} from "./author-changes.type";
+
 export class Book {
     id: number;
     title: string;
@@ -7,6 +10,8 @@ export class Book {
     author_id: number;
     first_name: string;
     last_name: string;
+    authors: Author[];
     plot: string;
     rate?: number;
+    author_changes?: AuthorChanges;
 }

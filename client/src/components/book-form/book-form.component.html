@@ -1,60 +1,80 @@
 <form class="book-form"
       (ngSubmit)="submit()"
       #form="ngForm">
-  <h1>{{mode === 'new' ? 'Add New' : 'Edit'}} Book:</h1>
+    <h1>{{mode === 'new' ? 'Add New' : 'Edit'}} Book:</h1>
 
-  <mat-form-field>
-    <input matInput
-           [(ngModel)]="book.title"
-           placeholder="Title"
-           name="title"
-           type="text"
-           required>
-  </mat-form-field>
+    <div class="submit-btn">
+        <button mat-button
+                mat-raised-button
+                color="primary"
+                [disabled]="!form.form.valid || !book.authors.length"
+                type="submit">
+            <span>{{mode === 'new' ? 'Add' : 'Update'}}</span>
+        </button>
 
-  <mat-form-field>
-    <mat-select placeholder="Category"
-                [(ngModel)]="book.category_id"
-                name="category">
-      <mat-option *ngFor="let category of categories | async"
-                  [value]="category.id">
-        {{ category.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+        <button *ngIf="mode !== 'new'"
+                mat-button
+                mat-raised-button
+                (click)="cancel()"
+                type="button">
+            <span>Cancel</span>
+        </button>
+    </div>
 
-  <mat-form-field>
-    <input matInput
-           [(ngModel)]="book.year"
-           placeholder="Year"
-           name="year"
-           type="number"
-           required>
-  </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               [(ngModel)]="book.title"
+               placeholder="Title"
+               name="title"
+               type="text"
+               required>
+    </mat-form-field>
 
-  <mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Category"
+                    [(ngModel)]="book.category_id"
+                    name="category"
+                    required>
+            <mat-option *ngFor="let category of categories | async"
+                        [value]="category.id">
+                {{ category.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput
+               [(ngModel)]="book.year"
+               placeholder="Year"
+               name="year"
+               type="number"
+               required>
+    </mat-form-field>
+
+    <mat-form-field>
             <textarea matInput
                       [(ngModel)]="book.plot"
                       placeholder="Plot"
                       name="plot">
             </textarea>
-  </mat-form-field>
+    </mat-form-field>
 
-  <div class="submit-btn">
-    <button mat-button
-            mat-raised-button
-            color="primary"
-            [disabled]="!form.form.valid"
-            type="submit">
-      <span>{{mode === 'new' ? 'Add' : 'Update'}}</span>
-    </button>
+    <p>Authors:</p>
 
-    <button *ngIf="mode !== 'new'"
-            mat-button
-            mat-raised-button
-            (click)="cancel()"
-            type="button">
-      <span>Cancel</span>
-    </button>
-  </div>
+    <mat-form-field class="author-list">
+        <mat-chip-list #chipList>
+            <mat-chip *ngFor="let author of book.authors; let i = index"
+                      [selectable]="false"
+                      [removable]="true"
+                      (remove)="removeAuthor(author)">
+                {{author.first_name}} {{author.last_name}}
+                <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </mat-form-field>
+
+    <app-user-list [authors]="true"
+                   [select]="true"
+                   (selected)="addAuthor($event)">
+    </app-user-list>
 </form>

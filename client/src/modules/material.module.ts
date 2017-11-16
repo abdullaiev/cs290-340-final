@@ -11,7 +11,8 @@ import {
     MatMenuModule,
     MatIconModule,
     MatSelectModule,
-    MatSliderModule
+    MatSliderModule,
+    MatChipsModule
 } from '@angular/material'
 import {NgModule} from '@angular/core';
 
@@ -29,7 +30,8 @@ import {NgModule} from '@angular/core';
         MatMenuModule,
         MatIconModule,
         MatSelectModule,
-        MatSliderModule
+        MatSliderModule,
+        MatChipsModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -44,7 +46,8 @@ import {NgModule} from '@angular/core';
         MatMenuModule,
         MatIconModule,
         MatSelectModule,
-        MatSliderModule
+        MatSliderModule,
+        MatChipsModule
     ]
 })
 export class AppMaterialModule {

@@ -31,6 +31,17 @@
             <mat-cell *matCellDef="let user;">{{user.reviews ? user.reviews : 0}}</mat-cell>
         </ng-container>
 
+        <ng-container *ngIf="select" matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+            <mat-cell *matCellDef="let user;">
+                <button (click)="emitSelected(user, $event)"
+                        mat-button color="primary"
+                        type="button">
+                    Select
+                </button>
+            </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
         <mat-row *matRowDef="let user; columns: tableColumns;"
                  [routerLink]="['/users', user?.id]"

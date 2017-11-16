@@ -24,14 +24,18 @@ export class BooksService {
         }
 
         return this.http.get(URL).map(
-            (data: Book[]) => {
-                return data;
+            (books: Book[]) => {
+                return this.mapAuthors(books);
             }
         );
     }
 
     get(id: number) {
-        return this.http.get(environment.api + 'books/' + id);
+        return this.http.get(environment.api + 'books/' + id).map(
+            (books: Book[]) => {
+                return this.mapAuthors(books)[0];
+            }
+        );;
     }
 
     add(book: Book) {
@@ -71,6 +75,32 @@ export class BooksService {
                 return data;
             }
         );
+    }
+
+    mapAuthors(books: Book[]) {
+        let bookMap = {};
+
+        books.forEach(
+            (book: Book) => {
+                if (!bookMap[book.id]) {
+                    bookMap[book.id] = book;
+                    bookMap[book.id].authors = [];
+                }
+
+                bookMap[book.id].authors.push({
+                    author_id: book.author_id,
+                    first_name: book.first_name,
+                    last_name: book.last_name
+                })
+            }
+        );
+
+        books = [];
+        for (let book in bookMap) {
+            books.push(bookMap[book]);
+        }
+
+        return books;
     }
 }
 
@@ -161,7 +191,7 @@ export class BooksDataSource extends DataSource<any> {
         });
     }
 
-    filterMatch(book: Book):boolean {
+    filterMatch(book: Book): boolean {
         let searchStr = `${book.title} ${book.category_name} ${book.first_name} ${book.last_name} ${book.year}`;
         let query = this.search.toLowerCase();
         searchStr = searchStr.toLowerCase();

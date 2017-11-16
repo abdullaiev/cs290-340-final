@@ -34,11 +34,7 @@ module.exports = function () {
             if (err) {
                 next(err);
             } else {
-                if (req.params.id) {
-                    res.send(rows[0]);
-                } else {
-                    res.send(rows);
-                }
+                res.send(rows);
             }
         });
     }
@@ -65,11 +61,11 @@ module.exports = function () {
             if (err) {
                 next(err);
             } else {
-                const authorID = req.session.user.id;
+                const authors = req.body.authors;
                 const bookID = rows[0] && rows[0]['MAX(id)'];
 
                 if (bookID) {
-                    insertIntoWrittenTable(authorID, bookID, res, next);
+                    insertIntoWrittenTable(authors, bookID, res, next);
                 } else {
                     next(err);
                 }
@@ -77,11 +73,16 @@ module.exports = function () {
         });
     }
 
-    function insertIntoWrittenTable(authorID, bookID, res, next) {
+    function insertIntoWrittenTable(authors, bookID, res, next) {
         const query = `INSERT INTO written (author_id, book_id) 
-                       VALUES ('${authorID}', '${bookID}')`;
+                       VALUES ?`;
+        let values = [];
 
-        mysql.query(query, function (err) {
+        authors.forEach(function (author) {
+            values.push([author.author_id, bookID]);
+        });
+
+        mysql.query(query, [values], function (err) {
             if (err) {
                 next(err);
             } else {
@@ -106,9 +107,7 @@ module.exports = function () {
             if (err) {
                 next(err);
             } else {
-                res.send({
-                    success: true
-                });
+                updateAuthors(req, res, next);
             }
         });
     }
@@ -126,6 +125,57 @@ module.exports = function () {
                 });
             }
         })
+    }
+
+    function updateAuthors(req, res, next) {
+        const query = `DELETE FROM written WHERE (author_id, book_id) IN (?)`;
+        const authorsToDelete = req.body.author_changes && req.body.author_changes.removed;
+        const bookID = req.body.id;
+        let values = [];
+
+        if (authorsToDelete.length) {
+            authorsToDelete.forEach(function (author) {
+                values.push([author.author_id, bookID]);
+            });
+
+            mysql.query(query, [values], function (err) {
+               if (err) {
+                   next(err);
+               } else {
+                   addAuthors(req, res, next);
+               }
+            });
+        } else {
+            addAuthors(req, res, next);
+        }
+    }
+
+    function addAuthors(req, res, next) {
+        const query = `INSERT INTO written (author_id, book_id) 
+                       VALUES ?`;
+        const authorsToAdd = req.body.author_changes && req.body.author_changes.added;
+        const bookID = req.body.id;
+        let values = [];
+
+        if (authorsToAdd.length) {
+            authorsToAdd.forEach(function (author) {
+                values.push([author.author_id, bookID]);
+            });
+
+            mysql.query(query, [values], function (err) {
+                if (err) {
+                    next(err);
+                } else {
+                    res.send({
+                        success: true
+                    });
+                }
+            });
+        } else {
+            res.send({
+                success: true
+            });
+        }
     }
 
     return app;

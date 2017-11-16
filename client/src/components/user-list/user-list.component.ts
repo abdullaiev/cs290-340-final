@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewEncapsulation, Input, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, Input, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
 import {MatSort} from "@angular/material";
 import {Observable} from "rxjs";
 
 import {UsersService, UsersDataSource} from "../../services/users.service";
+import {User} from "../../types/user.type";
 
 @Component({
     selector: 'app-user-list',
@@ -12,6 +13,9 @@ import {UsersService, UsersDataSource} from "../../services/users.service";
 })
 export class UserListComponent implements OnInit {
     @Input() authors:boolean;
+    @Input() select:boolean;
+    @Output() selected = new EventEmitter<User>();
+
     @ViewChild('search') search: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -46,6 +50,10 @@ export class UserListComponent implements OnInit {
         } else {
             this.tableColumns.push('reviews');
         }
+
+        if (this.select) {
+            this.tableColumns.push('select');
+        }
     }
 
     onSearch() {
@@ -54,5 +62,10 @@ export class UserListComponent implements OnInit {
         }
 
         this.users.search = this.search.nativeElement.value;
+    }
+
+    emitSelected(author, $event: Event) {
+        $event.stopPropagation();
+        this.selected.emit(author);
     }
 }

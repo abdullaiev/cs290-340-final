@@ -44,8 +44,8 @@ mat-form-field {
   color: #ffb500;
 }
 
-.link {
-  cursor: pointer;
+.link, .chip-clickable {
+  cursor: pointer !important;
 }
 
 .link:hover {

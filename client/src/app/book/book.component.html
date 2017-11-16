@@ -1,20 +1,33 @@
 <div *ngIf="book" class="scrollable">
     <section *ngIf="!editing">
         <h1>{{book.title}}</h1>
+
         <p class="rate">
             <mat-icon *ngFor="let star of getStars(book.rate)"
                       class="star">
                 {{star}}
             </mat-icon>
         </p>
+
         <p>
             <span>{{book.category_name}}, </span>
             <span>{{book.year}}</span>
         </p>
-        <p>
-            <b>Author<span>s</span>:</b>
-            <span>{{book.first_name}} {{book.last_name}}</span>
-        </p>
+
+        <div class="authors">
+            <p>
+                <b>Authors:</b>
+            </p>
+
+            <mat-chip-list>
+                <mat-chip *ngFor="let author of book.authors"color="accent"
+                          class="chip-clickable"
+                          [routerLink]="['/users', author.author_id]">
+                    {{author.first_name}} {{author.last_name}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+
         <p>
             <b>Plot:</b>
             {{book.plot}}
@@ -29,7 +42,7 @@
                 Write a Review
             </button>
 
-            <span *ngIf="book.author_id === user.id">
+            <span *ngIf="isAuthor()">
                 <button (click)="edit()"
                         mat-button
                         mat-raised-button
@@ -65,7 +78,7 @@
         </app-review-form>
     </section>
 
-    <section class="reviews">
+    <section [hidden]="editing || writingReview" class="reviews">
         <h2>{{book.title}} Reviews:</h2>
         <app-review-list [mode]="'book'"
                          [id]="book?.id">
