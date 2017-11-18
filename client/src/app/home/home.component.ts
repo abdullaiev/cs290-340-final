@@ -67,6 +67,16 @@ export class HomeComponent implements OnInit, OnDestroy {
             }, 4000);
     }
 
+    restartTimer() {
+        clearInterval(this.intervalID);
+        this.startSlideShow();
+    }
+
+    setCurrentSlide(index: number) {
+        this.currentSlideIndex = index;
+        this.restartTimer();
+    }
+
     subscribeToCurrentUserChanges() {
         this.userSubscription = this.userService.userEmitter.subscribe((user: User) => {
             this.user = user;

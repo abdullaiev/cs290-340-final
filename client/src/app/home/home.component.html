@@ -13,7 +13,7 @@
 
         <div class="bullets">
             <div *ngFor="let bullet of slides; let i = index"
-                 (click)="currentSlideIndex = i"
+                 (click)="setCurrentSlide(i)"
                  class="bullet">
                 <mat-icon *ngIf="i !== currentSlideIndex">
                     panorama_fish_eye
