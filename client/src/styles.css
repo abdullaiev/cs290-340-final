@@ -2,7 +2,9 @@
 
 body {
   margin: 0;
-  font-family: Helvetica, "Helvetica Neue", sans-serif
+  font-family: Helvetica, "Helvetica Neue", sans-serif;
+  height: 100vh;
+  overflow-y: hidden;
 }
 
 .scrollable {
