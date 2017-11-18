@@ -25,7 +25,7 @@ export class ReviewFormComponent implements OnInit {
   ngOnInit() {
     if (!this.review) {
       this.review = new Review();
-      this.review.rate = 1;
+      this.review.rating = 1;
       this.review.book_id = this.bookID;
     }
   }
@@ -62,6 +62,6 @@ export class ReviewFormComponent implements OnInit {
   }
 
   getStars() {
-    return this.reviewService.getStars(this.review.rate);
+    return this.reviewService.getStars(this.review.rating);
   }
 }

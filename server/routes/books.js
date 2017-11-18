@@ -15,10 +15,10 @@ module.exports = function () {
                      category.name as category_name, user.first_name, user.last_name, 
                      book.year, book.plot, written.author_id, 
                      (
-                        SELECT AVG(rate) from review 
+                        SELECT AVG(rating) from review 
                         WHERE review.book_id = written.book_id 
                         GROUP BY book_id
-                      ) as rate
+                      ) as rating
                      from book
                      INNER JOIN category ON book.category_id = category.id
                      INNER JOIN written ON written.book_id = book.id

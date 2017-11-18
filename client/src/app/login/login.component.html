@@ -2,7 +2,7 @@
   <form class="login-form"
         (ngSubmit)="login()"
         #loginForm="ngForm">
-    <h1>Please log into the system</h1>
+    <h1>Welcome back! Please log into the system:</h1>
 
     <mat-form-field>
       <input matInput
@@ -26,10 +26,14 @@
       <button mat-button
               mat-raised-button
               [disabled]="!loginForm.form.valid"
-              color="primary"
+              color="accent"
               type="submit">
         Log In
       </button>
+
+      <p class="signup">Don't have an account?
+        <button mat-button routerLink="/signup">Sign Up</button>
+      </p>
     </div>
   </form>
 </div>

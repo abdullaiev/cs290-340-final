@@ -56,17 +56,17 @@ export class ReviewService {
         );
     }
 
-    getStars(rate) {
+    getStars(rating) {
         let stars = [];
         let count = 5;
 
-        while (rate > 0 || count > 0) {
+        while (rating > 0 || count > 0) {
             count--;
-            rate--;
+            rating--;
 
-            if (rate >= 0) {
+            if (rating >= 0) {
                 stars.push('star');
-            } else if (rate >= -0.5) {
+            } else if (rating >= -0.5) {
                 stars.push('star_half');
             } else {
                 stars.push('star_border')

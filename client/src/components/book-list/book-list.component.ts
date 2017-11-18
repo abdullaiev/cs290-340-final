@@ -18,7 +18,7 @@ export class BookListComponent implements OnInit {
 
     @Input() authorID: string;
 
-    tableColumns = ['title', 'name', 'author', 'year', 'rate'];
+    tableColumns = ['title', 'name', 'author', 'year', 'rating'];
     books: BooksDataSource;
     qty: number;
 
@@ -60,7 +60,7 @@ export class BookListComponent implements OnInit {
         this.books.search = this.search.nativeElement.value;
     }
 
-    getStars(rate) {
-        return this.reviewService.getStars(rate);
+    getStars(rating) {
+        return this.reviewService.getStars(rating);
     }
 }

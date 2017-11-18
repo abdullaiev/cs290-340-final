@@ -51,3 +51,15 @@ mat-form-field {
 .link:hover {
   text-decoration: underline;
 }
+
+.login,
+.signup {
+  margin-top: 25px;
+}
+
+.login,
+.signup,
+.login .mat-button-wrapper,
+.signup .mat-button-wrapper {
+  font-size: .8em;
+}

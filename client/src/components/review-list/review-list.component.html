@@ -24,10 +24,10 @@
                 <mat-cell *matCellDef="let review;">{{review.review}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="rate">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Rate</mat-header-cell>
+            <ng-container matColumnDef="rating">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Rating</mat-header-cell>
                 <mat-cell *matCellDef="let review;">
-                    <mat-icon *ngFor="let star of getStars(review.rate)"
+                    <mat-icon *ngFor="let star of getStars(review.rating)"
                               class="star">
                         {{star}}
                     </mat-icon>

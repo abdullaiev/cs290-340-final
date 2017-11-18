@@ -105,8 +105,8 @@ export class BookComponent implements OnInit, OnDestroy {
     }
 
     getStars() {
-        const rate = this.book && this.book.rate;
-        return this.reviewService.getStars(rate);
+        const rating = this.book && this.book.rating;
+        return this.reviewService.getStars(rating);
     }
 
     isAuthor() {

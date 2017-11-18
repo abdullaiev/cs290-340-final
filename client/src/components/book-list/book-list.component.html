@@ -29,10 +29,10 @@
                 <mat-cell *matCellDef="let book;">{{book.year}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="rate">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Rate</mat-header-cell>
+            <ng-container matColumnDef="rating">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Rating</mat-header-cell>
                 <mat-cell *matCellDef="let book;">
-                    <mat-icon *ngFor="let star of getStars(book.rate)"
+                    <mat-icon *ngFor="let star of getStars(book.rating)"
                               class="star">
                         {{star}}
                     </mat-icon>

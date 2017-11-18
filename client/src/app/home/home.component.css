@@ -1,0 +1,60 @@
+.slide-box {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.slider {
+  transition: transform .8s ease-in-out;
+}
+
+.slide {
+  display: inline-block;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 35vw;
+  position: relative;
+}
+
+.text {
+  position: absolute;
+  top: 45%;
+  right: 30%;
+  left: 30%;
+  color: white;
+  font-weight: 700;
+  font-size: 2em;
+  white-space: normal;
+  text-align: center;
+  text-shadow: 2px 2px 5px #000;
+}
+
+.bullets {
+  position: absolute;
+  width: 100%;
+  bottom: 8px;
+  text-align: center;
+}
+
+.bullet {
+  color: white;
+  display: inline-block;
+  margin: 2px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.bullet mat-icon {
+  font-size: 18px;
+}
+
+.call-to-action {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.call-to-action button {
+  font-size: 20px;
+  padding: 10px 30px;
+}

@@ -2,8 +2,8 @@
     <section *ngIf="!editing">
         <h1>{{book.title}}</h1>
 
-        <p class="rate">
-            <mat-icon *ngFor="let star of getStars(book.rate)"
+        <p class="rating">
+            <mat-icon *ngFor="let star of getStars(book.rating)"
                       class="star">
                 {{star}}
             </mat-icon>

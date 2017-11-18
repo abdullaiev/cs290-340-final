@@ -35,7 +35,7 @@ export class ReviewListComponent implements OnInit {
             columns.push('book')
         }
         columns.push('review');
-        columns.push('rate');
+        columns.push('rating');
         columns.push('posted');
         this.tableColumns = columns;
     }

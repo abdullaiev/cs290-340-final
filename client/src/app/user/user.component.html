@@ -8,6 +8,18 @@
 
         <p>{{profileUser?.bio}}</p>
 
+        <p *ngIf="profileUser?.website">
+            <a [href]="website"
+               target="_blank"
+               mat-button
+               class="website">
+                {{profileUser?.website}}
+                <mat-icon>
+                    open_in_new
+                </mat-icon>
+            </a>
+        </p>
+
         <div *ngIf="currentUser?.id == profileUser?.id">
             <button *ngIf="profileUser?.author"
                     routerLink="/add-book"

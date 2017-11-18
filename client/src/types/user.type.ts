@@ -4,6 +4,7 @@ export class User {
     last_name: string;
     email: string;
     password?: string;
+    website: string;
     city: string;
     country: string;
     bio: string;

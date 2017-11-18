@@ -12,6 +12,6 @@ export class Book {
     last_name: string;
     authors: Author[];
     plot: string;
-    rate?: number;
+    rating?: number;
     author_changes?: AuthorChanges;
 }

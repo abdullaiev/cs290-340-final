@@ -42,6 +42,15 @@
 
   <mat-form-field>
     <input matInput
+           [(ngModel)]="user.website"
+           placeholder="Website"
+           name="website"
+           type="text"
+           required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
            [(ngModel)]="user.city"
            placeholder="City"
            name="city"
@@ -84,8 +93,13 @@
             (click)="cancel()"
             mat-button
             mat-raised-button
-            type="button">
+            type="accent">
       <span>Cancel</span>
     </button>
+
+    <p *ngIf="mode === 'new'" class="login">
+      Already have an account?
+      <button mat-button routerLink="/login">Log In</button>
+    </p>
   </div>
 </form>

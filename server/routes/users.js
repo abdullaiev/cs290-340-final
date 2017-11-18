@@ -20,7 +20,7 @@ module.exports = function () {
     app.delete('/', deleteUser);
 
     function getUsers(config, res, next) {
-        let query = `SELECT id, first_name, last_name, email, city, country, bio, author,
+        let query = `SELECT id, first_name, last_name, email, website, city, country, bio, author,
                         (SELECT COUNT(written.author_id) from written 
                             WHERE user.id = written.author_id 
                             GROUP BY written.author_id) as books,

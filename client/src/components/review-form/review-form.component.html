@@ -15,7 +15,7 @@
   <p>Rate the book from 1 to 5:</p>
   <p>
     <mat-icon *ngFor="let star of getStars(); let i = index"
-              (click)="review.rate = i + 1"
+              (click)="review.rating = i + 1"
               class="star">
       {{star}}
     </mat-icon>
@@ -24,7 +24,7 @@
   <div class="submit-btn">
     <button mat-button
             mat-raised-button
-            color="primary"
+            color="accent"
             [disabled]="!form.form.valid"
             type="submit">
       <span>{{mode === 'new' ? 'Add' : 'Update'}}</span>

@@ -1,1 +1,75 @@
-<p>Home</p>
+<div class="scrollable">
+    <div class="slide-box">
+        <div class="slider"
+             [style]="slides[currentSlideIndex].position">
+            <div *ngFor="let slide of slides;"
+                 class="slide"
+                 [style]="slide.img">
+                <div class="text">
+                    {{slide.text}}
+                </div>
+            </div>
+        </div>
+
+        <div class="bullets">
+            <div *ngFor="let bullet of slides; let i = index"
+                 (click)="currentSlideIndex = i"
+                 class="bullet">
+                <mat-icon *ngIf="i !== currentSlideIndex">
+                    panorama_fish_eye
+                </mat-icon>
+                <mat-icon *ngIf="i === currentSlideIndex">
+                    album
+                </mat-icon>
+            </div>
+        </div>
+    </div>
+    <div class="call-to-action">
+        <button *ngIf="user"
+                mat-button
+                mat-raised-button
+                color="accent"
+                routerLink="/books">
+            Get Started
+        </button>
+
+        <button *ngIf="!user"
+                mat-button
+                mat-raised-button
+                color="accent"
+                routerLink="/signup">
+            Get Started
+        </button>
+    </div>
+    <div class="features">
+        <p>Some features of this website:</p>
+        <ul>
+            <li>Create an account as either an author or a reader</li>
+            <li>Search for books, authors and readers</li>
+            <li>Sort the results by various properties such as Rating or Year</li>
+            <li>Post a review to any book</li>
+            <li>Add a new book and mark other authors as joint authors</li>
+            <li>Check out profiles of other readers</li>
+        </ul>
+    </div>
+
+    <a href="./assets/pics.zip" mat-button>
+        <mat-icon>
+            file_download
+        </mat-icon>
+        Download the pictures from the slide show
+    </a>
+
+    <p>Picture original sources:</p>
+    <ol>
+        <li>
+            <a href="https://financialtribune.com/articles/economy-domestic-economy/71060/decline-in-book-publications">financialtribune.com</a>
+        </li>
+        <li>
+            <a href="http://www.listal.com/viewimage/11854555" target="_blank">listal.com</a>
+        </li>
+        <li>
+            <a href="http://www.livelongandtravel.com/best-bookstores-across-the-country/" target="_blank">livelongandtravel.com</a>
+        </li>
+    </ol>
+</div>

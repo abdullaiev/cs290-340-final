@@ -179,8 +179,8 @@ export class BooksDataSource extends DataSource<any> {
                 case 'year':
                     [propA, propB] = [a.year, b.year];
                     break;
-                case 'rate':
-                    [propA, propB] = [a.rate, b.rate];
+                case 'rating':
+                    [propA, propB] = [a.rating, b.rating];
                     break;
             }
 

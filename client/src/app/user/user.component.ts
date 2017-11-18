@@ -5,6 +5,7 @@ import {User} from "../../types/user.type";
 import {UserService} from "../../services/user.service";
 import {Subscription} from "rxjs";
 import {BookListComponent} from "../../components/book-list/book-list.component";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-user',
@@ -19,11 +20,13 @@ export class UserComponent implements OnInit, OnDestroy {
     userEditCopy: User;
     paramsSubscription: Subscription;
     userSubscription: Subscription;
+    website;
 
     @ViewChild(BookListComponent) private bookList: BookListComponent;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
+                private sanitizer: DomSanitizer,
                 private userService: UserService) {
     }
 
@@ -49,6 +52,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
         if (this.currentUser && this.currentUser.id == id) {
             this.profileUser = this.currentUser;
+            this.updateUserWebsite();
         } else {
             this.fetchProfile(id);
         }
@@ -57,6 +61,7 @@ export class UserComponent implements OnInit, OnDestroy {
     fetchProfile(id: number) {
         this.userService.getUserByID(id).subscribe((user: User) => {
             this.profileUser = user;
+            this.updateUserWebsite();
         });
     }
 
@@ -96,6 +101,12 @@ export class UserComponent implements OnInit, OnDestroy {
                 }
             }
         );
+    }
+
+    updateUserWebsite() {
+        if (this.profileUser && this.profileUser.website) {
+            this.website = this.sanitizer.bypassSecurityTrustUrl(this.profileUser.website);
+        }
     }
 
     ngOnDestroy() {

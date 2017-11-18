@@ -6,6 +6,6 @@ export class Review {
     first_name: string;
     last_name: string;
     review: string;
-    rate: number;
+    rating: number;
     posted?: number;
 }
