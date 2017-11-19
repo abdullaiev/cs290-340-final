@@ -7,7 +7,7 @@
         <button mat-button
                 mat-raised-button
                 color="accent"
-                [disabled]="!form.form.valid || !book.authors.length"
+                [disabled]="!form.form.valid || !book.authors?.length"
                 type="submit">
             <span>{{mode === 'new' ? 'Add' : 'Update'}}</span>
         </button>
