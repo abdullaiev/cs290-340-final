@@ -1,6 +1,6 @@
 import {Inject} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable'
+import {Observable} from 'rxjs'
 import 'rxjs/add/operator/do'
 
 import {NotificationService} from "./notification.service";

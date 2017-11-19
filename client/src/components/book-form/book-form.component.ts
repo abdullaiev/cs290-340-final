@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
+import {Subscription} from "rxjs";
 
 import {Book} from "../../types/book.type";
 import {Category} from "../../types/category.type";

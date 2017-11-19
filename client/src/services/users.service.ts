@@ -5,7 +5,8 @@ import 'rxjs/add/operator/map'
 import {environment} from '../environments/environment';
 import {User} from "../types/user.type";
 import {DataSource} from "@angular/cdk/collections";
-import {Observable, BehaviorSubject} from "rxjs";
+import {Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {MatSort} from "@angular/material";
 
 @Injectable()
