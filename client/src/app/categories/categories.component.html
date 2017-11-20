@@ -1,0 +1,11 @@
+<div class="scrollable">
+    <h1>All Categories:</h1>
+
+    <mat-chip-list>
+        <mat-chip *ngFor="let category of categories | async"
+                  [routerLink]="['/category', category.id]"
+                  class="chip-clickable">
+            {{category.name}}({{category.books}})
+        </mat-chip>
+    </mat-chip-list>
+</div>

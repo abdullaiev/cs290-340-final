@@ -6,6 +6,7 @@ module.exports = function () {
     app.get('/', getBooks);
     app.get('/:id', getBooks);
     app.get('/author/:authorID', getBooks);
+    app.get('/category/:categoryID', getBooks);
     app.post('/', addBook);
     app.put('/:id', updateBook);
     app.delete('/:id', deleteBook);
@@ -26,6 +27,8 @@ module.exports = function () {
 
         if (req.params.authorID) {
             query += ` WHERE written.author_id = ${req.params.authorID}`;
+        } else if (req.params.categoryID) {
+            query += ` WHERE book.category_id = ${req.params.categoryID}`;
         } else if (req.params.id) {
             query += ` WHERE book.id = ${req.params.id}`;
         }

@@ -1,4 +1,5 @@
 <div class="scrollable">
-    <h1>All Books:</h1>
-    <app-book-list></app-book-list>
+    <h1 *ngIf="!categoryID">All Books:</h1>
+    <h1 *ngIf="categoryID">All Books in Category: {{getCategoryName()}}</h1>
+    <app-book-list [categoryID]="categoryID"></app-book-list>
 </div>

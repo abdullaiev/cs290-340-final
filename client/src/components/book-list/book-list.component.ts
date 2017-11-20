@@ -16,7 +16,8 @@ export class BookListComponent implements OnInit {
     @ViewChild('search') search: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input() authorID: string;
+    @Input() authorID: number;
+    @Input() categoryID: number;
 
     tableColumns = ['title', 'name', 'author', 'year', 'rating'];
     books: BooksDataSource;
@@ -32,7 +33,7 @@ export class BookListComponent implements OnInit {
     }
 
     fetchBooks() {
-        let observable = this.bookService.fetch(this.authorID);
+        let observable = this.bookService.fetch(this.authorID, this.categoryID);
 
         observable.subscribe(
             (books: Book[]) => {

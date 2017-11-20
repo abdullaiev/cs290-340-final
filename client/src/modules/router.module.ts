@@ -11,6 +11,7 @@ import {UserComponent} from "../app/user/user.component";
 import {AddBookComponent} from "../app/add-book/add-book.component";
 import {ReadersComponent} from "../app/readers/readers.component";
 import {BookComponent} from "../app/book/book.component";
+import {CategoriesComponent} from "../app/categories/categories.component";
 
 const routes: Routes = [
     {
@@ -32,6 +33,14 @@ const routes: Routes = [
     {
         path: 'books/:id',
         component: BookComponent
+    },
+    {
+        path: 'category/:id',
+        component: BooksComponent
+    },
+    {
+        path: 'categories',
+        component: CategoriesComponent
     },
     {
         path: 'add-book',

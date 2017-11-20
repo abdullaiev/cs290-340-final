@@ -4,7 +4,9 @@ module.exports = function () {
     const app = express();
 
     app.get('/', function (req, res, next) {
-        const query = `SELECT * from category`;
+        const query = `SELECT category.id, category.name, (
+                           SELECT COUNT(book.id) from book WHERE book.category_id = category.id
+                       ) AS books FROM category`;
 
         mysql.query(query, function (err, rows) {
             if (err) {

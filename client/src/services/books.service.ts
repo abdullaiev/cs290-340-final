@@ -17,11 +17,13 @@ export class BooksService {
 
     }
 
-    fetch(authorID?: string) {
+    fetch(authorID: number, categoryID: number) {
         let URL = environment.api + 'books';
 
         if (authorID) {
             URL += '/author/' + authorID;
+        } else if (categoryID) {
+            URL += '/category/' + categoryID;
         }
 
         return this.http.get(URL).map(

@@ -30,6 +30,7 @@ import {BookComponent} from './book/book.component';
 import {BookFormComponent} from '../components/book-form/book-form.component';
 import {ReviewService} from "../services/review.service";
 import {ReviewFormComponent} from '../components/review-form/review-form.component';
+import {CategoriesComponent} from './categories/categories.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import {ReviewFormComponent} from '../components/review-form/review-form.compone
         UserListComponent,
         BookComponent,
         BookFormComponent,
-        ReviewFormComponent
+        ReviewFormComponent,
+        CategoriesComponent
     ],
     imports: [
         BrowserModule,
