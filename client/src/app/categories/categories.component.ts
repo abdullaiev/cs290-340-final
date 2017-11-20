@@ -10,12 +10,38 @@ import {Observable} from "rxjs";
     styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-    categories: Observable<Category[]>;
+    categories: Category[];
+    newCategory: Category;
+    addingCategory = false;
 
     constructor(private categoryService: CategoryService) {
     }
 
     ngOnInit() {
-        this.categories = this.categoryService.fetch();
+        this.fetchCategories();
+    }
+
+    fetchCategories() {
+        this.categoryService.fetch().subscribe(
+            (categories: Category[]) => {
+                this.categories = categories;
+            }
+        );
+    }
+
+    showAddCategory() {
+        this.addingCategory = true;
+        this.newCategory = new Category();
+    }
+
+    add() {
+        this.categoryService.add(this.newCategory).subscribe(
+            (data: any) => {
+                if (data.success) {
+                    this.addingCategory = false;
+                    this.fetchCategories();
+                }
+            }
+        );
     }
 }

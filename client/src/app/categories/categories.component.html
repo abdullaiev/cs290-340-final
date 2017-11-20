@@ -2,10 +2,49 @@
     <h1>All Categories:</h1>
 
     <mat-chip-list>
-        <mat-chip *ngFor="let category of categories | async"
+        <mat-chip *ngFor="let category of categories"
                   [routerLink]="['/category', category.id]"
                   class="chip-clickable">
             {{category.name}}({{category.books}})
         </mat-chip>
     </mat-chip-list>
+
+    <p *ngIf="!addingCategory" class="add-one">
+        Don't see the right category?
+        <a (click)="showAddCategory()"
+           mat-button>
+            Add One
+        </a>
+    </p>
+
+    <div *ngIf="addingCategory" class="add-category">
+        <form class="review-form"
+              (ngSubmit)="add()"
+              #form="ngForm">
+            <mat-form-field>
+                <input matInput
+                       [(ngModel)]="newCategory.name"
+                       placeholder="Category Name"
+                       name="name"
+                       required>
+            </mat-form-field>
+
+            <div class="submit-btn">
+                <button mat-button
+                        mat-raised-button
+                        color="accent"
+                        [disabled]="!form.form.valid"
+                        type="submit">
+                    Add
+                </button>
+
+                <button mat-button
+                        mat-raised-button
+                        (click)="addingCategory = false"
+                        type="button">
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
